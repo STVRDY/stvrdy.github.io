@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>ACCESSING SYSTEM...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js" async></script>
+</head>
+<body>
+    <div id="welcome-screen">
+        <div id="terminal"><pre id="terminal-output"></pre><div id="terminal-input" style="display:none;"><span>> </span><button class="terminal-button">[ENTER_SYSTEM]</button></div></div>
+    </div>
+    <main id="desktop" style="display: none;">
+        <div id="icon-grid">
+            <div class="desktop-icon" data-folder="about-me"><img src="https://img.icons8.com/ios-filled/100/00ff41/user-male-circle.png" alt="About Me"><p>about_me.txt</p></div>
+            <div class="desktop-icon" data-folder="photos"><img src="https://img.icons8.com/ios/100/00ff41/folder-invoices--v1.png" alt="Photos"><p>Photos</p></div>
+            <div class="desktop-icon" data-folder="videos"><img src="https://img.icons8.com/ios/100/00ff41/folder-invoices--v1.png" alt="Videos"><p>Videos</p></div>
+            <div class="desktop-icon" data-folder="3d-models"><img src="https://img.icons8.com/ios/100/00ff41/folder-invoices--v1.png" alt="3D Models"><p>3D_Models</p></div>
+            <div class="desktop-icon" data-folder="designs"><img src="https://img.icons8.com/ios/100/00ff41/folder-invoices--v1.png" alt="Designs"><p>Designs</p></div>
+            <div class="desktop-icon" data-folder="contact"><img src="https://img.icons8.com/ios-filled/100/00ff41/online-support.png" alt="Contact"><p>contact.sh</p></div>
+            <!-- ¡NUEVO ICONO DEL JUEGO! -->
+            <div class="desktop-icon icon-align-right" data-folder="game"><img src="https://img.icons8.com/ios-filled/100/00ff41/controller.png" alt="Game"><p>BrickBreaker.exe</p></div>
+        </div>
+        <div id="taskbar"><div id="start-btn" role="button" aria-label="Start Menu" tabindex="0">>_</div><div id="clock">00:00</div></div>
+        <div id="start-menu" class="hidden"><div class="start-menu-item" data-folder="terminal">Exec: Terminal</div><div class="start-menu-item" data-folder="photos">Dir: /Photos</div><div class="start-menu-item" data-folder="contact">Exec: contact.sh</div></div>
+    </main>
+    <script src="js/main.js"></script>
+</body>
+</html>
