@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. LÓGICA DE BIENVENIDA, SONIDO Y RELOJ
     //======================================================================
     const welcomeScreen=document.getElementById("welcome-screen"),terminalOutput=document.getElementById("terminal-output"),terminalInput=document.getElementById("terminal-input"),welcomeLines=["INITIATING CONNECTION...","BYPASSING SECURITY...","CONNECTION ESTABLISHED.","WELCOME, USER."];
-    const typingSound = new Audio("assets/sounds/typing.mp3");
+    const typingSound = new Audio("assets/sounds/type.mp3");
     typingSound.loop = true;
 
     function typeWriter(){let e=0,t=0;typingSound.play().catch(e=>{});const n=()=>{if(e<welcomeLines.length){if(t<welcomeLines[e].length)terminalOutput.innerHTML+=welcomeLines[e].charAt(t++),setTimeout(n,50);else{terminalOutput.innerHTML+="\n",e++,t=0,setTimeout(n,300)}}else{terminalInput.style.display="block",typingSound.pause()}};n()}
