@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="assets/logo/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <div class="container">
+
+        <header>
+            <nav>
+                <div class="logo">
+                    <!-- LOGO -->
+                    <img src="assets/logo/logo.png" alt="Logo Animado" class="interactive">
+                </div>
+                <ul>
+                    <li><a href="#sobre-mi" class="interactive">Sobre Mí</a></li>
+                    <li><a href="#proyectos" class="interactive">Proyectos</a></li>
+                    <li><a href="#contacto" class="interactive">Contacto</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="hero">
+                <h1 class="reveal">Hola, soy Jhael Baéz.<br>Diseñador y comunicador digital creando experiencias visuales.</h1>
+                <p class="reveal">Estudiante en <strong>UNAPEC</strong>, con pasión por el diseño gráfico, desarrollo web y la fotografía.</p>
+            </section>
+
+            <!-- SOBRE MÍ -->
+            <section id="sobre-mi">
+                <div class="about-content">
+                    <div class="about-image reveal">
+                        <img src="assets/public/profile.png" alt="Foto de perfil" class="profile-pic">
+                    </div>
+                    <div class="about-text">
+                        <h2 class="reveal">Sobre Mí</h2>
+                        <p class="reveal">Soy un creativo digital con un fuerte enfoque en la estética y la funcionalidad. Mi formación en Comunicación Digital en UNAPEC me ha dado las herramientas para transformar ideas en realidades visuales, desde la ilustración vectorial hasta el modelado 3D y el desarrollo de interfaces web interactivas.</p>
+                        <h3 class="reveal">Mis Herramientas</h3>
+                        <div class="skills-list reveal">
+                            <span>Illustrator</span><span>Photoshop</span><span>InDesign</span><span>Premiere</span><span>Blender</span><span>HTML</span><span>CSS</span><span>Fotografía</span><span>Diseño UX/UI</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="proyectos">
+                <h2 class="reveal">Proyectos Destacados</h2>
+                <div class="portfolio-grid">
+                    <!-- PROYECTOS -->
+                    <div class="portfolio-item-preview interactive reveal">
+                        <img src="assets/images/Story-2.jpg" alt="Proyecto 1">
+                        <h3>Portada Publicitaria</h3>
+                        <p>Fotografía - Illustrator - Photoshop</p>
+                    </div>
+                    <div class="portfolio-item-preview interactive reveal">
+                        <img src="assets/images/Casa Minimalista Render.jpg" alt="Proyecto 2">
+                        <h3>Render conceptual</h3>
+                        <p>Blender 4.5</p>
+                    </div>
+                </div>
+                <!-- BOTÓN PARA VER MÁS & CV -->
+                <div class="view-more-container reveal">
+                    <a href="projects.html" class="cta-button interactive">Ver todos los proyectos</a>
+                </div>
+
+
+            </section>
+
+            <section id="contacto">
+                <h2 class="reveal">¿Hablamos?</h2>
+                <p class="reveal">Estoy disponible para colaboraciones y nuevas oportunidades.</p>
+                <a href="mailto:Jhaelbaez01@gmail.com" class="email-link interactive reveal">Jhaelbaez01@gmail.com</a>
+                <div class="view-more-container reveal">
+                    <a href="https://www.instagram.com/champanasdepapi/" class="cta-button interactive" target="_blank">Instagram</a>
+                    <a href="https://www.instagram.com/kboarddot/" class="cta-button interactive" target="_blank">Tienda</a> 
+                    <a href="assets/public/CV - Jhael Baez.pdf" class="cta-button interactive" download="assets/public/CV - Jhael Baez.pdf">CV</a>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>©2025 JBaéz</p>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

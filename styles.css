@@ -1,0 +1,472 @@
+:root {
+    --bg-color: #121212;
+    --primary-color: #FFFFFF;
+    --secondary-color: #888888;
+    --accent-color: #007BFF; /* Un azul brillante como acento */
+
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    font-family: var(--font-body);
+    cursor: none; /* Ocultamos el cursor por defecto */
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* --- CURSOR PERSONALIZADO --- */
+.cursor {
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none; /* Para que no interfiera con los clics */
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    z-index: 9999;
+}
+.cursor.grow {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 0, 0, 0.3);
+    border-color:rgb(255, 0, 0) ;
+}
+
+/* --- NAVEGACIÓN Y HEADER (ESTILOS CORREGIDOS) --- */
+header {
+    padding: 40px 0;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.logo img {
+    height: 50px; /* Ajusta según el tamaño de tu logo */
+    width: auto;
+    filter: invert(0); /* Estado inicial del logo */
+    transition: filter 0.3s ease;
+}
+.logo img:hover {
+    filter: invert(1); /* Efecto invertido al pasar el ratón */
+}
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    
+}
+nav a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    cursor: none;
+}
+nav a:hover {
+    color: var(--primary-color);
+}
+.logo-link {
+    display: block; /* Para que el enlace del logo funcione correctamente */
+}
+
+/* --- SECCIONES PRINCIPALES --- */
+section {
+    padding: 80px 0;
+}
+
+#hero {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+#hero h1 {
+    font-family: var(--font-heading);
+    font-size: 48px;
+    line-height: 1.3;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+#hero p {
+    font-size: 18px;
+    color: var(--secondary-color);
+    max-width: 600px;
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+/* --- Nueva sección "Sobre Mí" --- */
+#sobre-mi {
+    padding: 100px 0;
+}
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+.about-image {
+    flex: 1;
+}
+.profile-pic {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 5px;
+}
+.about-text {
+    flex: 1.5;
+}
+.about-text h3 {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+.about-text p {
+    color: var(--secondary-color);
+    line-height: 1.7;
+}
+
+/* --- HABILIDADES --- */
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.skills-list span {
+    padding: 10px 20px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+/* --- Proyectos en la Landing Page --- */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+.portfolio-item-preview {
+    text-decoration: none;
+    color: var(--primary-color);
+    display: block;
+}
+.portfolio-item-preview img {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: grayscale(80%);
+}
+.portfolio-item-preview:hover img {
+    transform: scale(1.03);
+    filter: grayscale(0%);
+}
+.portfolio-item-preview h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.portfolio-item-preview p {
+    color: var(--secondary-color);
+}
+.view-more-container {
+    text-align: center;
+    margin-top: 60px;
+}
+.cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 30px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: none;
+}
+.cta-button:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+/* --- CONTACTO --- */
+#contacto { text-align: center; }
+#contacto p { margin-bottom: 20px; color: var(--secondary-color); }
+.email-link {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+    cursor: none;
+}
+
+/* --- Estilos para la página de Galería (projects.html) --- */
+#full-portfolio h1 {
+    font-family: var(--font-heading);
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+.full-portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 80px;
+}
+.project-card {
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 5px;
+}
+.project-card h3 {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+.project-card p {
+    color: var(--secondary-color);
+    margin-bottom: 25px;
+    max-width: 700px;
+}
+.project-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.media-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.media-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--secondary-color);
+    border-top: 1px solid #222;
+    margin-top: 60px;
+}
+
+/* --- ANIMACIONES DE SCROLL --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Responsividad para móviles --- */
+@media (max-width: 768px) {
+    body { cursor: auto; }
+    .cursor { display: none; }
+    
+    #hero h1 { font-size: 32px; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .about-content { flex-direction: column; text-align: center; }
+    
+    nav { flex-direction: column; gap: 20px; }
+    nav ul { padding: 0; }
+}
+
+
+/* === GALERÍA TIPO INSTAGRAM === */
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2px; /* separación entre imágenes */
+  background-color: #121212; /* color del fondo detrás de los bordes */
+  border: 1px solid #111; /* contorno sutil general */
+}
+
+.insta-post {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.05); /* ✅ borde sutil */
+  transition: border-color 0.2s ease, transform 0.3s ease;
+}
+
+.insta-post:hover {
+  border-color: rgba(255, 255, 255, 0.15); /* se ilumina levemente al pasar el cursor */
+  transform: scale(1.01);
+}
+
+.insta-post img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ✅ imagen completa sin recortar */
+  background-color: transparent;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: none;
+}
+
+.insta-post:hover img {
+  transform: scale(1.05);
+  filter: brightness(85%);
+}
+
+
+
+/* === MODAL === */
+.insta-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  cursor: crosshair;
+}
+
+.insta-modal-content {
+  background: #111;
+  border-radius: 12px;
+  display: flex;
+  max-width: 900px;
+  width: 90%;
+  overflow: hidden;
+  position: relative;
+  animation: fadeIn .3s ease;
+  cursor: crosshair;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 999;
+  transition: color 0.2s ease;
+}
+.close-modal:hover {
+  color: var(--accent-color);
+}
+
+.modal-left {
+  flex: 1;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-left img {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+/* ✅ Las imágenes horizontales se verán más grandes */
+.modal-left img.horizontal {
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+.modal-right {
+  flex: 1;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  background: #1a1a1a;
+  border-left: 1px solid #222;
+}
+
+.modal-right h2 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.modal-right p {
+  color: var(--secondary-color);
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.comments {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.comment {
+  margin-bottom: 10px;
+}
+
+.comment strong {
+  color: var(--accent-color);
+}
+
+.add-comment {
+  display: flex;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+}
+
+.add-comment input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #fff;
+  outline: none;
+  font-size: 14px;
+}
+
+.add-comment button {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .insta-modal-content {
+    flex-direction: column;
+  }
+}
