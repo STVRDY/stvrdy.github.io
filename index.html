@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jhael Baez — Video Editor & Motion Designer</title>
+  <meta name="description" content="Video editor and motion designer specializing in short form content, reels, and commercial editing. Crafting videos people actually finish watching." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Jhael Baez — Video Editor & Motion Designer" />
+  <meta property="og:description" content="Crafting videos that people actually finish watching." />
+  <meta property="og:image" content="assets/og/og-cover.jpg" />
+  <meta name="theme-color" content="#090909" />
+
+
+  <link rel="icon" type="image/svg" href="assets/favicon/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
+
+  <!-- LOAD CURTAIN -->
+  <div class="curtain" id="curtain">
+    <div class="curtain__mark"><span>Jhael Baez</span></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <span class="nav__brand">WORK IN PROGRESS</span>
+    <div class="nav__links">
+      <a href="#work">Work</a>
+      <a href="archive.html">Archive</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+</nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="hero__orbit">
+      <span class="glow g1"></span>
+      <span class="glow g2"></span>
+    </div>
+    <div class="hero__inner">
+      <h1 class="reveal">
+        <span class="line"><span>Jhael</span></span>
+        <span class="line"><span>B. Rivera</span></span>
+      </h1>
+      <p class="hero__tag">Crafting videos that people actually finish watching.</p>
+      <div class="hero__roles">
+        <span>Video Editor</span>
+        <span>Motion Designer</span>
+        <span>Designer</span>
+        <span>3D Artist</span>
+      </div>
+    </div>
+    <div class="scrollcue"><i></i><span>Scroll</span></div>
+  </header>
+
+  <!-- SELECTED WORK -->
+  <section id="work">
+    <div class="eyebrow">Selected Work</div>
+    <div class="work__head">
+      <h2>Cuts that hold attention.</h2>
+      <span class="work__count">2021 — 2026</span>
+    </div>
+
+    <div class="card-grid in-section" id="featuredGrid"></div>
+
+    <div class="work__more">
+      <a href="archive.html" class="pill" data-cursor="hover">
+        <span>View full archive</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="eyebrow">About</div>
+    <p class="about__big" data-split>I edit like a director — every cut earns its place, every frame respects the viewer's time.</p>
+    <div class="about__grid">
+      <div class="stat"><div class="n" data-count="120">0</div><div class="l">Projects delivered</div></div>
+      <div class="stat"><div class="n" data-count="12">0</div><div class="l">Brands & creators</div></div>
+      <div class="stat"><div class="n" data-count="4">0</div><div class="l">Years editing</div></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="eyebrow">Services</div>
+    <div class="serv__list">
+      <a class="serv__row" data-cursor="hover">
+        <span class="idx">01</span>
+        <h3>Video Editing</h3>
+      </a>
+      
+      <a class="serv__row" data-cursor="hover">
+        <span class="idx">02</span>
+        <h3>Motion Graphics</h3>
+      </a>
+
+      <a class="serv__row" data-cursor="hover">
+        <span class="idx">03</span>
+        <h3>Branding</h3>
+      </a>
+
+
+      <a class="serv__row" data-cursor="hover">
+        <span class="idx">04</span>
+        <h3>Graphic Design</h3>
+      </a>
+
+      <a class="serv__row" data-cursor="hover">
+        <span class="idx">05</span>
+        <h3>Photography</h3>
+      </a>
+    </div>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section class="flow" id="flow">
+    <div class="flow__sticky">
+      <div class="flow__track" id="flowTrack">
+        <div class="flow__intro">
+          <div class="eyebrow">Workflow</div>
+          <h2>From idea<br>to final cut.</h2>
+          <p>A repeatable rhythm that keeps projects calm and on time.</p>
+        </div>
+        <div class="step" style="background-image:url('assets/workflow/01-discovery.jpg');">
+          <div class="step__gradient"></div>
+          <div class="step__body"><span class="num">01</span><h4>Discovery</h4><p>Understand the goal, the audience and the hook before touching the timeline.</p></div>
+        </div>
+        <div class="step" style="background-image:url('assets/workflow/02-editing.jpg');">
+          <div class="step__gradient"></div>
+          <div class="step__body"><span class="num">02</span><h4>Editing</h4><p>Assembly, rhythm and structure — the cut that carries the story.</p></div>
+        </div>
+        <div class="step" style="background-image:url('assets/workflow/03-motion.jpg');">
+          <div class="step__gradient"></div>
+          <div class="step__body"><span class="num">03</span><h4>Motion</h4><p>Type, graphics and movement layered with intent, never noise.</p></div>
+        </div>
+        <div class="step" style="background-image:url('assets/workflow/04-sound.jpg');">
+          <div class="step__gradient"></div>
+          <div class="step__body"><span class="num">04</span><h4>Sound</h4><p>Mix, music and beats locked tight to the visual rhythm.</p></div>
+        </div>
+        <div class="step" style="background-image:url('assets/workflow/05-delivery.jpg');">
+          <div class="step__gradient"></div>
+          <div class="step__body"><span class="num">05</span><h4>Delivery</h4><p>Export formats tuned per platform — ready to publish, ready to perform.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox__stage">
+      <button class="lightbox__close" id="lbClose" aria-label="Cerrar">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="lightbox__video"><iframe id="lbFrame" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe></div>
+      <img class="lightbox__img" id="lbImg" src="" alt="">
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="eyebrow">Let's work</div>
+    <h2>Have a project<br>in mind?</h2>
+    <a class="mailbtn" href="mailto:jhaelbaez01@gmail.com" data-cursor="hover" target="_blank"><span>Say Hello!</span></a>
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/jhaelbaez/" data-cursor="hover" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/champanasdepapi/" data-cursor="hover" target="_blank">Instagram</a>
+      <a href="http://wa.me/+18496070637" data-cursor="hover" target="_blank">WhatsApp</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Jhael Baez</span>
+    <span>Edited frame by frame.</span>
+  </footer>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
