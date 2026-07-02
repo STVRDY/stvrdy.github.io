@@ -55,7 +55,8 @@ const Scroll = (() => {
    ============================================================================ */
 function cardHTML(w, i, forceVertical) {
   const isVideo = w.type === "video";
-  const src = isVideo ? `https://img.youtube.com/vi/${w.youtube}/hqdefault.jpg` : w.img;
+  /* const src = isVideo ? `https://img.youtube.com/vi/${w.youtube}/hqdefault.jpg` : w.img; */
+  const src = isVideo ? (w.thumbnail || `https://img.youtube.com/vi/${w.youtube}/hqdefault.jpg`): w.img;
   const isVertical = w.vertical || forceVertical;
   const dataAttr = isVideo
     ? `data-video="${w.youtube}"${isVertical ? ' data-vertical="1"' : ''}`

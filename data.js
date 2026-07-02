@@ -36,6 +36,7 @@ const WORKS = [
     type: "video",
     tag: "Video Editing",
     title: "Whatspetona X RedEye",
+    thumbnail: "assets/thumbnails/whatspetona.webp",
     sub: "Blender Animation",
     youtube: "yv8D6X61BqE",
     featured: true,
@@ -59,13 +60,14 @@ const WORKS = [
     sub: "Commercial Reel",
     youtube: "OxPAcA3ZTbo",
     vertical: true,
-    featured: true
+    featured: false
   },
 
   {
     type: "video",
     tag: "Video Editing",
     title: "Kboarddot X RedEye",
+    thumbnail: "assets/thumbnails/sketch.webp",
     sub: "Sketch Reel",
     youtube: "9Q0OUfR8EkI",
     vertical: true,
@@ -76,6 +78,7 @@ const WORKS = [
     type: "video",
     tag: "Video Editing",
     title: "Martinez Device X RedEye",
+    thumbnail: "assets/thumbnails/MartinezDevice1.webp",
     sub: "Planned Obsolescence",
     youtube: "jPiH2U72sdw",
     vertical: true,
@@ -85,6 +88,7 @@ const WORKS = [
     type: "video",
     tag: "Video Editing",
     title: "NÜCLEO X RedEye",
+    thumbnail: "assets/thumbnails/NÜCLEO.webp",
     sub: "Anniversary",
     youtube: "h3Uhf-wU8sE",
     vertical: true,
@@ -236,8 +240,20 @@ const WORKS = [
     type: "video",
     tag: "Motion Graphics",
     title: "Apple AD",
+    thumbnail: "assets/thumbnails/Apple.webp",
     sub: "Work in progress",
     youtube: "RwrLyA96AKI",
+    vertical: true,
+    featured: true
+  } ,
+
+           {
+    type: "video",
+    tag: "Motion Graphics",
+    title: "Motion Graphic - Ebay",
+    thumbnail: "assets/thumbnails/Ebay.webp",
+    sub: "Concept",
+    youtube: "ko7NeLo3NiY",
     vertical: true,
     featured: true
   } ,
