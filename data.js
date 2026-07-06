@@ -72,7 +72,7 @@ const WORKS = [
     sub: "Anniversary",
     youtube: "h3Uhf-wU8sE",
     vertical: true,
-    featured: true
+    featured: false
   } ,
 
     {
@@ -246,7 +246,7 @@ const WORKS = [
     sub: "Concept",
     youtube: "ko7NeLo3NiY",
     vertical: true,
-    featured: true
+    featured: false
   } ,
 
       {
@@ -268,7 +268,7 @@ const WORKS = [
     sub: "Toyota BRZ",
     youtube: "beKDFqerR-Y",
     vertical: true,
-    featured: false
+    featured: true
   },
 
           {
@@ -337,7 +337,7 @@ const WORKS = [
     title: "Enorden - Graphics Test",
     sub: "Carrousel 1/3",
     img: "assets/projects/M63.webp",
-    featured: true
+    featured: false
   },
 
   {
@@ -354,7 +354,7 @@ const WORKS = [
     title: "Enorden - Graphics Test",
     sub: "Carrousel 3/3",
     img: "assets/projects/M65.webp",
-    featured: true
+    featured: false
   },
 
         {
@@ -363,7 +363,7 @@ const WORKS = [
     title: "Newlink - Graphics Test",
     sub: "Carrousel 1/3",
     img: "assets/projects/M81.webp",
-    featured: true
+    featured: false
   },
 
   {
@@ -380,7 +380,7 @@ const WORKS = [
     title: "Newlink - Graphics Test",
     sub: "Carrousel 3/3",
     img: "assets/projects/M83.webp",
-    featured: true
+    featured: false
   },
 
   {
@@ -389,7 +389,7 @@ const WORKS = [
     title: "Civiltec - Graphics Test",
     sub: "Carrousel 1/3",
     img: "assets/projects/M75.webp",
-    featured: true
+    featured: false
   },
 
   {
@@ -406,7 +406,7 @@ const WORKS = [
     title: "Civiltec - Graphics Test",
     sub: "Carrousel 3/3",
     img: "assets/projects/M77.webp",
-    featured: true
+    featured: false
   },
 
     {
@@ -415,7 +415,7 @@ const WORKS = [
     title: "Civiltec - Graphics Test",
     sub: "Carrousel 1/3",
     img: "assets/projects/M78.webp",
-    featured: true
+    featured: false
   },
 
   {
@@ -432,7 +432,7 @@ const WORKS = [
     title: "Civiltec - Graphics Test",
     sub: "Carrousel 3/3",
     img: "assets/projects/M80.webp",
-    featured: true
+    featured: false
   },
 
   {
@@ -441,7 +441,7 @@ const WORKS = [
     title: "Newlink - Graphics Test",
     sub: "Development of a cured meat brand",
     img: "assets/projects/M84.webp",
-    featured: true
+    featured: false
   },
 
 
@@ -454,7 +454,7 @@ const WORKS = [
     title: "Sauce League - Poster",
     sub: "Play-in Poster",
     img: "assets/projects/M38.webp",
-    featured: true
+    featured: false
   },
 
       {
@@ -463,7 +463,7 @@ const WORKS = [
     title: "Sauce League - Poster",
     sub: "Play-in Poster",
     img: "assets/projects/M39.webp",
-    featured: true
+    featured: false
   },
 
       {
@@ -472,7 +472,7 @@ const WORKS = [
     title: "Sauce League - Poster",
     sub: "MVP Game Poster",
     img: "assets/projects/M41.webp",
-    featured: true
+    featured: false
   },
 
       {
@@ -481,7 +481,7 @@ const WORKS = [
     title: "Caremax - Graphic Test",
     sub: "Commercial Post",
     img: "assets/projects/M66.webp",
-    featured: true
+    featured: false
   },
 
       {
@@ -490,7 +490,7 @@ const WORKS = [
     title: "Graphics Test",
     sub: "Commercial Post",
     img: "assets/projects/M67.webp",
-    featured: true
+    featured: false
   },
 
         {
@@ -499,7 +499,7 @@ const WORKS = [
     title: "Design",
     sub: "Random Stuff",
     img: "assets/projects/M70.webp",
-    featured: true
+    featured: false
   },
 
           {
@@ -508,7 +508,7 @@ const WORKS = [
     title: "Design",
     sub: "Random Stuff",
     img: "assets/projects/M71.webp",
-    featured: true
+    featured: false
   },
 
           {
@@ -517,7 +517,7 @@ const WORKS = [
     title: "Designs",
     sub: "Random Stuff",
     img: "assets/projects/M72.webp",
-    featured: true
+    featured: false
   },
 
           {
@@ -526,7 +526,7 @@ const WORKS = [
     title: "Design",
     sub: "SilllDa Inspired",
     img: "assets/projects/M73.webp",
-    featured: true
+    featured: false
   },
 
           {
@@ -535,7 +535,7 @@ const WORKS = [
     title: "Random Stuff",
     sub: "Random Stuff",
     img: "assets/projects/M74.webp",
-    featured: true
+    featured: false
   },
 
   
