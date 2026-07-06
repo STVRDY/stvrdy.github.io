@@ -46,26 +46,6 @@ const WORKS = [
   {
     type: "video",
     tag: "Video Editing",
-    title: "Studio X RedEye",
-    sub: "Carwash Reel",
-    youtube: "er4Kr_eoAIc",
-    vertical: true,
-    featured: false
-  },
-
-  {
-    type: "video",
-    tag: "Video Editing",
-    title: "NKBeauty X RedEye",
-    sub: "Commercial Reel",
-    youtube: "OxPAcA3ZTbo",
-    vertical: true,
-    featured: false
-  },
-
-  {
-    type: "video",
-    tag: "Video Editing",
     title: "Kboarddot X RedEye",
     thumbnail: "assets/thumbnails/Sketch.webp",
     sub: "Sketch Reel",
@@ -247,6 +227,17 @@ const WORKS = [
     featured: true
   } ,
 
+      {
+    type: "video",
+    tag: "Motion Graphics",
+    title: "Logo Animation",
+    thumbnail: "assets/thumbnails/RedEye.webp",
+    sub: "Logo Outro",
+    youtube: "_pUhm-8-l6M",
+    vertical: true,
+    featured: true
+  } ,
+
            {
     type: "video",
     tag: "Motion Graphics",
@@ -268,16 +259,50 @@ const WORKS = [
     featured: false
   } ,
 
+  /* Montage */
         {
     type: "video",
-    tag: "Motion Graphics",
+    tag: "Montage",
+    title: "Car Edit",
+    thumbnail: "assets/thumbnails/brzmontage.webp",
+    sub: "Toyota BRZ",
+    youtube: "beKDFqerR-Y",
+    vertical: true,
+    featured: false
+  },
+
+          {
+    type: "video",
+    tag: "Montage",
     title: "Cinetic Transition",
+    thumbnail: "assets/thumbnails/sentra.webp",
     sub: "Car Edit",
     youtube: "fhL4fB1jF_s",
     vertical: false,
     featured: false
   } ,
 
+  {
+    type: "video",
+    tag: "Montage",
+    title: "Studio X RedEye",
+    thumbnail: "assets/thumbnails/Studiox.webp",
+    sub: "Carwash Reel",
+    youtube: "er4Kr_eoAIc",
+    vertical: true,
+    featured: false
+  },
+
+    {
+    type: "video",
+    tag: "Montage",
+    title: "NKBeauty X RedEye",
+    thumbnail: "assets/thumbnails/NKB.webp",
+    sub: "Commercial Reel",
+    youtube: "OxPAcA3ZTbo",
+    vertical: true,
+    featured: false
+  },
 
   /* Long Format */
 
@@ -331,6 +356,97 @@ const WORKS = [
     img: "assets/projects/M65.webp",
     featured: true
   },
+
+        {
+    type: "image",
+    tag: "Graphic Design",
+    title: "Newlink - Graphics Test",
+    sub: "Carrousel 1/3",
+    img: "assets/projects/M81.webp",
+    featured: true
+  },
+
+  {
+    type: "image",
+    tag: "Graphic Design",
+    title: "Newlink - Graphics Test",
+    sub: "Carrousel 2/3",
+    img: "assets/projects/M82.webp"
+  },
+
+  {
+    type: "image",
+    tag: "Graphic Design",
+    title: "Newlink - Graphics Test",
+    sub: "Carrousel 3/3",
+    img: "assets/projects/M83.webp",
+    featured: true
+  },
+
+  {
+    type: "image",
+    tag: "Graphic Design",
+    title: "Civiltec - Graphics Test",
+    sub: "Carrousel 1/3",
+    img: "assets/projects/M75.webp",
+    featured: true
+  },
+
+  {
+    type: "image",
+    tag: "Graphic Design",
+    title: "Civiltec - Graphics Test",
+    sub: "Carrousel 2/3",
+    img: "assets/projects/M76.webp"
+  },
+
+  {
+    type: "image",
+    tag: "Graphic Design",
+    title: "Civiltec - Graphics Test",
+    sub: "Carrousel 3/3",
+    img: "assets/projects/M77.webp",
+    featured: true
+  },
+
+    {
+    type: "image",
+    tag: "Graphic Design",
+    title: "Civiltec - Graphics Test",
+    sub: "Carrousel 1/3",
+    img: "assets/projects/M78.webp",
+    featured: true
+  },
+
+  {
+    type: "image",
+    tag: "Graphic Design",
+    title: "Civiltec - Graphics Test",
+    sub: "Carrousel 2/3",
+    img: "assets/projects/M79.webp"
+  },
+
+  {
+    type: "image",
+    tag: "Graphic Design",
+    title: "Civiltec - Graphics Test",
+    sub: "Carrousel 3/3",
+    img: "assets/projects/M80.webp",
+    featured: true
+  },
+
+  {
+    type: "image",
+    tag: "Graphic Design",
+    title: "Newlink - Graphics Test",
+    sub: "Development of a cured meat brand",
+    img: "assets/projects/M84.webp",
+    featured: true
+  },
+
+
+
+  
 
     {
     type: "image",
@@ -526,4 +642,4 @@ const WORKS = [
 
 /* Las categorías que aparecen como filtros y como páginas.
    Si quieres quitar o renombrar una, edítala aquí (debe coincidir con los "tag" de arriba). */
-const CATEGORIES = ["Video Editing", "Motion Graphics", "Branding", "Graphic Design", "Photography", "Long Format"];
+const CATEGORIES = ["Motion Graphics","Video Editing","Graphic Design","Montage", "Branding", "Photography","Long Format"];
