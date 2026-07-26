@@ -32,6 +32,17 @@ const WORKS = [
 
               /* Video Editing */
 
+          {
+    type: "video",
+    tag: "Video Editing",
+    title: "Product Review",
+    sub: "Kboarddot X RedEye ",
+    thumbnail: "assets/thumbnails/AJ139V2.webp",
+    youtube: "nOKuO8fzsg8",
+    vertical: false,
+    featured: true
+  } ,
+
   {
     type: "video",
     tag: "Video Editing",
@@ -642,4 +653,4 @@ const WORKS = [
 
 /* Las categorías que aparecen como filtros y como páginas.
    Si quieres quitar o renombrar una, edítala aquí (debe coincidir con los "tag" de arriba). */
-const CATEGORIES = ["Motion Graphics","Video Editing","Graphic Design","Montage", "Branding", "Photography","Long Format"];
+const CATEGORIES = ["Motion Graphics","Video Editing","Graphic Design","Montage", "Branding", "Photography","Long Format"]; 
