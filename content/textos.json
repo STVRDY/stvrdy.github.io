@@ -44,8 +44,18 @@
   "cat_foto": "Foto",
   "delivered": "Entregado",
   "chat_placeholder": "iMessage",
-  "chat_reply": "¡Gracias! Para que me llegue, envíalo por",
-  "chat_email": "correo",
-  "chat_or": "o",
-  "footer_note": ""
+  "footer_note": "",
+  "contact_email_label": "Correo:",
+  "contact_email_ph": "tu@correo.com",
+  "contact_need": "Escribe tu mensaje y un correo válido para poder responderte.",
+  "contact_sending": "Enviando…",
+  "contact_sent": "Entregado. Te respondo pronto.",
+  "copy_email": "Copiar correo",
+  "copied": "Copiado ✓",
+  "chat_ask_email": "¡Gracias! ¿A qué correo te respondo?",
+  "chat_bad_email": "Ese correo no parece válido. ¿Me lo escribes de nuevo?",
+  "chat_sent": "¡Listo! Me llegó tu mensaje. Te respondo pronto ✉️",
+  "chat_fallback": "Para que me llegue, escríbeme por",
+  "experience_now": "Actual",
+  "experience_count": "puestos"
 }

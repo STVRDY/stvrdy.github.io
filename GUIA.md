@@ -132,6 +132,30 @@ Las fotos que subes se convierten solas a WebP y se reducen a 2200 px, así la w
 
 ---
 
+## 5b. Recibir mensajes (importante, solo la primera vez)
+
+El chat del inicio y el formulario de contacto envían los mensajes a tu correo con **Web3Forms**, un servicio gratis (250 mensajes al mes).
+
+1. Entra en **web3forms.com**, escribe tu correo y pulsa **Create Access Key**.
+2. Te llega un correo con tu **Access Key** (una clave larga). Cópiala.
+3. En el panel: **Perfil y contacto → Clave de Web3Forms** → pega la clave → **Save**.
+4. Prueba: escribe en el chat de tu web. Te pedirá un correo para responder y el mensaje te llegará a tu bandeja (revisa también Spam la primera vez).
+
+Esa clave puede verse en el código de la página: es normal, Web3Forms está hecho así y solo sirve para enviarte mensajes a ti.
+
+Sin la clave, la web no se rompe: en vez de enviar, ofrece **WhatsApp** y un botón para **copiar tu correo**.
+
+### Experiencia con logos
+En **Trayectoria → Experiencia** cada puesto tiene **Logo de la empresa** (mejor PNG o SVG cuadrado, con fondo transparente o blanco), **Fechas**, **Es mi trabajo actual** (pone la etiqueta verde "Actual") y **Qué hacías** (opcional). Si no subes logo, se muestran las iniciales de la empresa.
+
+### Campos vacíos
+Ninguna lista del panel es obligatoria: puedes dejar vacíos el workflow, los servicios o la experiencia y la sección simplemente no aparece.
+
+### Portadas copiadas de YouTube Studio
+Si pegas como portada un enlace que empieza por `https://i9.ytimg.com/...`, ese enlace caduca a los pocos días. La web lo detecta y usa la miniatura automática del video. Lo mejor es descargar la imagen y subirla al panel como **Portada**.
+
+---
+
 ## 6. Trabajar sin internet (opcional)
 
 1. Abre `ver-local.bat`.

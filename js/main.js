@@ -18,7 +18,7 @@ let PROJECTS = []; // proyectos visibles
 /* ---------- utilidades ---------- */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 // Rutas de archivos subidos: funcionan igual en usuario.github.io y en usuario.github.io/repo
-const url = p => (p || '').replace(/^\/+/, '');
+const url = p => (p || '').replace(/^\/+/, '').replace(/ /g, '%20');
 // Degradado de relleno cuando un proyecto aún no tiene portada
 const hue = s => [...String(s)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 360, 7);
 const grad = s => `linear-gradient(160deg, hsl(${hue(s)} 82% 66%), hsl(${(hue(s) + 45) % 360} 70% 36%))`;
@@ -33,6 +33,12 @@ function ytThumb(id, vertical) {
   return `https://i.ytimg.com/vi/${id}/${vertical ? 'oardefault' : 'maxresdefault'}.jpg`;
 }
 // Si la miniatura grande no existe, usa la estándar
+// Si una portada no carga, usa la miniatura de YouTube
+window.coverFix = function (img) {
+  img.onerror = () => thumbFix(img);
+  img.onload = () => thumbFix(img);
+  img.src = ytThumb(img.dataset.yt, img.dataset.v === '1');
+};
 window.thumbFix = function (img) {
   if (img.dataset.fixed) return;
   if (img.naturalWidth && img.naturalWidth > 120) return;
@@ -45,7 +51,9 @@ function mediaHTML(x, opts = {}) {
   const vertical = x.format !== 'horizontal';
   const id = ytId(x.youtube);
   if (x.video && opts.video !== false) return `<video src="${esc(url(x.video))}" muted loop playsinline preload="metadata"${x.cover ? ` poster="${esc(url(x.cover))}"` : ''}></video>`;
-  if (x.cover) return `<img src="${esc(url(x.cover))}" alt="" loading="lazy">`;
+  // Los enlaces i9.ytimg.com (copiados de YouTube Studio) caducan: mejor usar la miniatura automática
+  const cover = /i9\.ytimg\.com/.test(x.cover || '') && id ? '' : x.cover;
+  if (cover) return `<img src="${esc(url(cover))}" alt="" loading="lazy"${id ? ` data-yt="${id}" data-v="${vertical ? 1 : 0}" onerror="coverFix(this)"` : ''}>`;
   if (id) return `<img src="${ytThumb(id, vertical)}" data-yt="${id}" onload="thumbFix(this)" onerror="thumbFix(this)" alt="" loading="lazy">`;
   return opts.ph ? `<span class="ph">${esc(x.title)}</span>` : '';
 }
@@ -85,6 +93,7 @@ async function load(name) {
   setupScroll();
   setupReveal();
   setupAdminDoor();
+  setupProfileTilt();
   window.liquidGlass && window.liquidGlass();
   chatIntro();
 })();
@@ -96,6 +105,7 @@ function applyTexts() {
   document.documentElement.lang = T.lang || 'es';
   $('#cName').placeholder = T.contact_name || '';
   $('#cMsg').placeholder = T.contact_message || '';
+  $('#cEmail').placeholder = T.contact_email_ph || '';
   $('#chatInput').placeholder = T.chat_placeholder || 'iMessage';
 }
 
@@ -146,22 +156,51 @@ async function chatIntro() {
   d.className = 'delivered'; d.textContent = T.delivered || 'Entregado';
   $('#chat').append(d);
   input.readOnly = false;
-  input.placeholder = T.contact_message || 'Escríbeme…';
+  setChatInput('msg');
+}
+// Paso 1: el visitante escribe su mensaje. Paso 2: le pedimos el correo. Paso 3: se envía.
+const chat = { step: 'msg', msg: '' };
+const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+async function botSay(html, raw) {
+  await wait(400);
+  const t = document.createElement('div');
+  t.className = 'typing'; t.innerHTML = '<i></i><i></i><i></i>';
+  $('#chat').append(t);
+  await wait(900); t.remove();
+  bubble(html, false, raw); trimChat();
+}
+function setChatInput(step) {
+  const input = $('#chatInput');
+  chat.step = step;
+  input.type = step === 'email' ? 'email' : 'text';
+  input.placeholder = step === 'email' ? (T.contact_email_ph || 'tu@correo.com') : (T.contact_message || '');
 }
 $('#chatForm').addEventListener('submit', async e => {
   e.preventDefault();
   const input = $('#chatInput'), v = input.value.trim();
   if (!v || input.readOnly) return;
   input.value = '';
-  $('.delivered')?.remove();
+  $('.delivered', $('#chat'))?.remove();
   bubble(v, true); trimChat();
-  await wait(500);
-  const t = document.createElement('div');
-  t.className = 'typing'; t.innerHTML = '<i></i><i></i><i></i>';
-  $('#chat').append(t);
-  await wait(1000); t.remove();
-  bubble(`${esc(T.chat_reply || '')} <a href="${mailto(v)}">${esc(T.chat_email || 'email')}</a> ${esc(T.chat_or || 'o')} <a href="${wa(v)}" target="_blank" rel="noopener">WhatsApp</a>.`, false, true);
-  trimChat();
+  if (chat.step === 'msg') {
+    chat.msg = v;
+    if (!P.form_key) return botSay(fallbackHTML(v), true);
+    setChatInput('email');
+    return botSay(T.chat_ask_email || '¿A qué correo te respondo?');
+  }
+  if (!isEmail(v)) return botSay(T.chat_bad_email || 'Ese correo no parece válido.');
+  input.readOnly = true;
+  try {
+    await sendForm({ email: v, message: chat.msg, source: 'Chat del inicio' });
+    const d = document.createElement('div');
+    d.className = 'delivered'; d.textContent = T.delivered || 'Entregado';
+    $('#chat').append(d);
+    await botSay(T.chat_sent || '¡Listo! Te respondo pronto.');
+  } catch (err) {
+    await botSay(fallbackHTML(chat.msg), true);
+  }
+  input.readOnly = false;
+  setChatInput('msg');
 });
 
 /* ---------- abanico de tarjetas ---------- */
@@ -256,24 +295,65 @@ function renderWork() {
 }
 
 /* ---------- trayectoria (bento) ---------- */
+const isNow = e => e.current || /actual|hoy|present|now/i.test(e.years || '');
 function renderBento(d) {
   const s = d.stats || [];
   const stat = (x, cls = '') => x ? `<div class="k" data-count="${Number(x.value) || 0}" data-suffix="${esc(x.suffix || '')}">0${esc(x.suffix || '')}</div><div class="l ${cls}">${esc(x.label)}</div>` : '';
   const colors = ['#0a84ff', '#bf5af2', '#ff9f0a', '#30d158', '#ff375f', '#64d2ff', '#ffd60a'];
+  const chip = (html, i, c) => `<span class="chip" style="--ci:${i}">${c ? `<i style="--c:${c}"></i>` : ''}${html}</span>`;
+  const img = d.image || P.avatar; // sin imagen propia, usa tu foto de perfil
+  const xp = d.experience || [];
   $('#bento').innerHTML = `
-    <div class="bc bc-img" style="--n:0">${d.image ? `<img src="${esc(url(d.image))}" alt="" loading="lazy">` : ''}<div>${stat(s[0])}</div></div>
-    <div class="bc bc-blue" style="--n:1">${stat(s[1])}</div>
+    <div class="bc bc-img" style="--n:0">${img ? `<img src="${esc(url(img))}" alt="" loading="lazy">` : ''}<span class="shade"></span><div>${stat(s[0])}</div></div>
+    <div class="bc bc-blue" style="--n:1"><span class="orb"></span>${stat(s[1])}</div>
     <div class="bc bc-wide" style="--n:2"><h3>${esc(T.programs_title || '')}</h3>
-      <div class="chips">${(d.programs || []).map((p, i) => `<span class="chip"><i style="--c:${colors[i % colors.length]}"></i>${esc(p)}</span>`).join('')}</div></div>
+      <div class="chips">${(d.programs || []).map((p, i) => chip(esc(p), i, colors[i % colors.length])).join('')}</div></div>
     <div class="bc bc-wide bc-mesh" style="--n:3"><h3>${esc(T.languages_title || '')}</h3>
-      <div class="chips">${(d.languages || []).map(l => `<span class="chip"><b>${esc(l.name)}</b> ${esc(l.level)}</span>`).join('')}</div></div>
+      <div class="chips">${(d.languages || []).map((l, i) => chip(`<b>${esc(l.name)}</b><small>${esc(l.level)}</small>`, i)).join('')}</div></div>
     <div class="bc bc-mint" style="--n:4">${stat(s[2])}</div>
     ${(d.services || []).length ? `<div class="bc bc-full" style="--n:5"><h3>${esc(T.services_title || '')}</h3>
-      <div class="chips">${d.services.map(x => `<span class="chip">${esc(x)}</span>`).join('')}</div></div>` : ''}
-    ${(d.experience || []).length ? `<div class="bc bc-exp" style="--n:5"><h3>${esc(T.experience_title || '')}</h3>
-      <ul class="exp">${d.experience.map(e => `<li><b>${esc(e.role)}</b><span>${esc(e.company)}</span><em>${esc(e.years)}</em></li>`).join('')}</ul></div>` : ''}`;
+      <div class="chips">${d.services.map((x, i) => chip(esc(x), i)).join('')}</div></div>` : ''}
+    ${xp.length ? `<div class="bc bc-xp" data-scene="pass" style="--n:6">
+      <span class="xp-glow" aria-hidden="true"></span>
+      <header class="xp-head"><h3>${esc(T.experience_title || '')}</h3><span>${xp.length} ${esc(T.experience_count || '')}</span></header>
+      <ol class="xp">${xp.map((e, i) => `
+        <li class="xp-i${isNow(e) ? ' is-now' : ''}" style="--n:${i}">
+          <span class="xp-logo">${e.logo ? `<img src="${esc(url(e.logo))}" alt="${esc(e.company)}" loading="lazy">` : `<b>${esc(initials(e.company))}</b>`}</span>
+          <div class="xp-txt"><b>${esc(e.role)}</b><span>${esc(e.company)}</span>${e.description ? `<p>${esc(e.description)}</p>` : ''}</div>
+          <div class="xp-when">${isNow(e) ? `<span class="now"><i></i>${esc(T.experience_now || 'Actual')}</span>` : ''}<em>${esc(e.years || '')}</em></div>
+        </li>`).join('')}</ol></div>` : ''}`;
   observeReveal($$('.bc'), el => $$('[data-count]', el).forEach(countUp));
+  observeReveal($$('.xp-i'));
+  setupGlow($$('.bc'));
   renderWorkflow(d.workflow || []);
+}
+
+/* Luz que sigue al ratón + leve inclinación 3D (solo con ratón) */
+const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+function setupGlow(els) {
+  if (!finePointer || reduced) return;
+  els.forEach(el => {
+    const tilt = !el.classList.contains('bc-xp');
+    el.addEventListener('pointermove', e => {
+      const r = el.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      el.style.setProperty('--mx', x + 'px'); el.style.setProperty('--my', y + 'px');
+      if (tilt) { el.style.setProperty('--ry', ((x / r.width - .5) * 7).toFixed(2) + 'deg'); el.style.setProperty('--rx', ((.5 - y / r.height) * 7).toFixed(2) + 'deg'); }
+    });
+    el.addEventListener('pointerleave', () => { el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
+  });
+}
+function setupProfileTilt() {
+  if (!finePointer || reduced) return;
+  const stage = $('.hero-stage'), card = $('#profile');
+  stage.addEventListener('pointermove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - (r.left + r.width / 2)) / innerWidth, y = (e.clientY - (r.top + r.height / 2)) / innerHeight;
+    card.style.setProperty('--ry', (x * 14).toFixed(2) + 'deg');
+    card.style.setProperty('--rx', (-y * 14).toFixed(2) + 'deg');
+    card.style.setProperty('--gx', (e.clientX - r.left) + 'px');
+    card.style.setProperty('--gy', (e.clientY - r.top) + 'px');
+  });
+  stage.addEventListener('pointerleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
 }
 
 /* ---------- workflow (pasos de trabajo) ---------- */
@@ -304,10 +384,11 @@ function renderGallery(items) {
   const spots = [[12, 16, 120, 260, 14], [30, 8, 84, 160, -10], [70, 10, 104, 220, 8], [88, 22, 132, 300, -12], [6, 46, 92, 180, -8], [94, 50, 96, 200, 10],
     [16, 80, 128, 280, 10], [36, 90, 88, 170, -6], [64, 88, 116, 240, 12], [86, 82, 90, 190, -10], [24, 38, 64, 120, 6], [78, 38, 70, 140, -6]];
   const small = innerWidth < 640;
+  const big = Math.max(1, Math.min(1.7, innerWidth / 1440)); // escala en monitores grandes
   $('#scatter').innerHTML = spots.map((s, i) => {
     const x = items[i % Math.max(1, items.length)] || {};
     const key = (x.caption || '') + i;
-    return `<div class="sc" data-g="${i % Math.max(1, items.length)}" style="left:${s[0]}%;top:${s[1]}%;--s:${small ? s[2] * .6 : s[2]}px;--sp:${s[3]}px;--r:${s[4]}deg;--g:${grad(key)}">${x.image ? `<img src="${esc(url(x.image))}" alt="" loading="lazy">` : ''}</div>`;
+    return `<div class="sc" data-g="${i % Math.max(1, items.length)}" style="left:${s[0]}%;top:${s[1]}%;--s:${small ? s[2] * .6 : Math.round(s[2] * big)}px;--sp:${Math.round(s[3] * big)}px;--r:${s[4]}deg;--g:${grad(key)}">${x.image ? `<img src="${esc(url(x.image))}" alt="" loading="lazy">` : ''}</div>`;
   }).join('');
   $$('.sc').forEach(el => el.onclick = () => openGallery());
   $('#openGallery').onclick = openGallery;
@@ -329,17 +410,65 @@ function renderMessages(items) {
   $('#row2').innerHTML = fill([...items].reverse()).map(pop).join('');
 }
 
-/* ---------- contacto ---------- */
-const mailto = t => `mailto:${P.email || ''}?subject=${encodeURIComponent('Proyecto · ' + ($('#cName').value || ''))}&body=${encodeURIComponent(t)}`;
+/* ---------- contacto ----------
+   Los mensajes se envían con Web3Forms (gratis). La clave va en el panel:
+   Perfil y contacto → "Clave de Web3Forms". Sin clave, se ofrece WhatsApp y copiar el correo. */
 const wa = t => `https://wa.me/${String(P.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent(t)}`;
+async function sendForm({ name = '', email, message, source }) {
+  if (!P.form_key) throw new Error('Falta la clave de Web3Forms');
+  const r = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      access_key: P.form_key,
+      subject: `Portfolio · mensaje de ${name || email}`,
+      from_name: name || 'Visitante del portfolio',
+      name, email, message, origen: source
+    })
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok || j.success === false) throw new Error(j.message || 'Error ' + r.status);
+}
+// Plan B: WhatsApp + botón para copiar el correo
+function fallbackHTML(msg) {
+  const parts = [];
+  if (P.whatsapp) parts.push(`<a href="${wa(msg)}" target="_blank" rel="noopener">WhatsApp</a>`);
+  if (P.email) parts.push(`<button type="button" class="copy-mail" data-copy="${esc(P.email)}">${esc(P.email)}</button>`);
+  return `${esc(T.chat_fallback || 'Escríbeme por')} ${parts.join(' · ')}`;
+}
+document.addEventListener('click', async e => {
+  const b = e.target.closest('.copy-mail');
+  if (!b) return;
+  try { await navigator.clipboard.writeText(b.dataset.copy); }
+  catch { const r = document.createRange(); r.selectNodeContents(b); getSelection().removeAllRanges(); getSelection().addRange(r); }
+  const old = b.textContent; b.textContent = T.copied || 'Copiado ✓';
+  setTimeout(() => b.textContent = old, 1600);
+});
 function renderContact() {
-  const upd = () => {
-    const t = $('#cMsg').value;
-    $('#cMail').href = mailto(t);
-    $('#cWa').href = wa(`Hola, soy ${$('#cName').value || ''}. ${t}`);
-  };
-  $('#cName').oninput = $('#cMsg').oninput = upd; upd();
+  const form = $('#cForm'), status = $('#cStatus'), btn = $('#cSend');
+  const updWa = () => $('#cWa').href = wa(`Hola, soy ${$('#cName').value || ''}. ${$('#cMsg').value}`);
+  $('#cName').oninput = $('#cMsg').oninput = updWa; updWa();
   if (!P.whatsapp) $('#cWa').hidden = true;
+  $('#cCopy').dataset.copy = P.email || '';
+  $('#cCopy').textContent = T.copy_email || 'Copiar correo';
+  if (!P.email) $('#cCopy').hidden = true;
+  const say = (cls, html) => { status.className = 'c-status ' + cls; status.innerHTML = html; };
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const name = $('#cName').value.trim(), email = $('#cEmail').value.trim(), message = $('#cMsg').value.trim();
+    if (!message || !isEmail(email)) return say('warn', esc(T.contact_need || 'Escribe tu mensaje y un correo válido.'));
+    btn.disabled = true; form.classList.add('sending'); say('', esc(T.contact_sending || 'Enviando…'));
+    try {
+      await sendForm({ name, email, message, source: 'Formulario de contacto' });
+      // El mensaje enviado aparece como burbuja azul de iMessage
+      $('#cSent').insertAdjacentHTML('beforeend', `<div class="b me in">${esc(message)}</div>`);
+      $('#cMsg').value = '';
+      say('ok', esc(T.contact_sent || 'Entregado. Te respondo pronto.'));
+    } catch (err) {
+      say('err', fallbackHTML(message));
+    }
+    btn.disabled = false; form.classList.remove('sending');
+  });
   $('#socials').innerHTML = (P.socials || []).filter(s => s.url).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join('');
 }
 

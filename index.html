@@ -143,15 +143,22 @@
       <h2 data-t="contact_title">Say Hi!</h2>
       <p data-t="contact_sub"></p>
     </header>
-    <div class="compose">
-      <div class="to"><span data-t="contact_to">To:</span> <b id="toName"></b></div>
-      <label class="to"><span data-t="contact_from">From:</span> <input id="cName" autocomplete="name"></label>
+    <!-- Los mensajes se envían con Web3Forms (ver GUIA.md, "Recibir mensajes") -->
+    <form class="compose" id="cForm" novalidate>
+      <div class="to"><span data-t="contact_to">Para:</span> <b id="toName"></b></div>
+      <label class="to"><span data-t="contact_from">De:</span> <input id="cName" name="name" autocomplete="name"></label>
+      <label class="to"><span data-t="contact_email_label">Correo:</span> <input id="cEmail" name="email" type="email" autocomplete="email" required></label>
+      <div class="c-sent" id="cSent" aria-live="polite"></div>
       <div class="compose-bar">
-        <textarea id="cMsg" rows="4"></textarea>
-        <a class="send" id="cMail" href="#" aria-label="Enviar por correo">↑</a>
+        <textarea id="cMsg" name="message" rows="4" required></textarea>
+        <button class="send" id="cSend" type="submit" aria-label="Enviar">↑</button>
       </div>
+      <p class="c-status" id="cStatus" role="status"></p>
+    </form>
+    <div class="alt">
+      <a id="cWa" href="#" target="_blank" rel="noopener" data-t="contact_whatsapp">Mejor por WhatsApp</a>
+      <button type="button" class="copy-mail" id="cCopy">Copiar correo</button>
     </div>
-    <div class="alt"><a id="cWa" href="#" target="_blank" rel="noopener" data-t="contact_whatsapp">Mejor por WhatsApp</a></div>
     <div class="socials" id="socials"></div>
   </section>
 </main>
