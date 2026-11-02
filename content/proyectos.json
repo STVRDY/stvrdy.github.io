@@ -1,6 +1,36 @@
 {
   "items": [
     {
+      "title": "Showcase Reel - Wings Store",
+      "visible": true,
+      "featured": true,
+      "category": "video",
+      "format": "vertical",
+      "youtube": "https://youtube.com/shorts/pgbpw8lufYc",
+      "cover": "/assets/uploads/IMDN8V1NSRC40.webp",
+      "video": "",
+      "images": [],
+      "client": "Wings Store",
+      "role": "Editor",
+      "year": "Oct. 2026",
+      "description": ""
+    },
+    {
+      "title": "Tutorial - Motion Graphic",
+      "visible": true,
+      "featured": true,
+      "category": "motion",
+      "format": "vertical",
+      "youtube": "https://youtube.com/shorts/L6zb3vZozWQ",
+      "cover": "/assets/uploads/IMTn_Xk34Wm2M.webp",
+      "video": "",
+      "images": [],
+      "client": "Wings Store",
+      "role": "Editor, Animador",
+      "year": "Oct. 2026",
+      "description": ""
+    },
+    {
       "title": "Stand Animation - Wings Store",
       "visible": true,
       "featured": true,
