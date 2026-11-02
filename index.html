@@ -1,191 +1,173 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jhael Baez — Video Editor & Motion Designer</title>
-  <meta name="description" content="Video editor and motion designer specializing in short form content, reels, and commercial editing. Crafting videos people actually finish watching." />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Jhael Baez — Video Editor & Motion Designer" />
-  <meta property="og:description" content="Crafting videos that people actually finish watching." />
-  <meta property="og:image" content="assets/og/og-cover.jpg" />
-  <meta name="theme-color" content="#090909" />
-
-
-  <link rel="icon" type="image/svg" href="assets/favicon/favicon.svg"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jhael Baez — Portfolio</title>
+<meta name="description" content="Video editor and motion designer specializing in short form content, reels and commercial editing. Crafting videos people actually finish watching.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jhael Baez — Video Editor & Motion Designer">
+<meta property="og:description" content="Crafting videos that people actually finish watching.">
+<meta property="og:url" content="https://stvrdy.github.io/">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="noise"></div>
-  <div class="cursor"></div>
-  <div class="cursor-dot"></div>
+<!--
+  ESTRUCTURA DE LA PÁGINA
+  El texto y las fotos NO se escriben aquí: vienen de los archivos en /content
+  (o del panel en /admin). Aquí solo está el "esqueleto" de cada sección.
+-->
 
-  <!-- LOAD CURTAIN -->
-  <div class="curtain" id="curtain">
-    <div class="curtain__mark"><span>Jhael Baez</span></div>
+<div class="sky" aria-hidden="true"></div>
+
+<!-- ===== MENÚ ===== -->
+<nav class="nav lg lg-dark" id="nav" aria-label="Principal">
+  <a class="nav-logo" href="#top" aria-label="Inicio"><span id="navLogo">JB</span></a>
+  <div class="nav-links">
+    <a href="#trabajo" data-t="nav_work">Trabajo</a>
+    <a href="#sobre" data-t="nav_about">Sobre mí</a>
+    <a href="#trayectoria" data-t="nav_background">Trayectoria</a>
+    <a href="#galeria" data-t="nav_gallery">Galería</a>
   </div>
-
-  <!-- NAV -->
-  <nav class="nav" id="nav">
-    <span class="nav__brand">WORK IN PROGRESS</span>
-    <div class="nav__links">
-      <a href="#work">Work</a>
-      <a href="archive.html">Archive</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-    </div>
+  <button class="nav-more" id="moreBtn" aria-label="Más opciones">•••</button>
+  <a class="nav-hi lg lg-light" href="#contacto" data-t="say_hi">Say Hi!</a>
 </nav>
 
-  <!-- HERO -->
-  <header class="hero" id="top">
-    <div class="hero__orbit">
-      <span class="glow g1"></span>
-      <span class="glow g2"></span>
+<main id="top">
+
+  <!-- ===== PERFIL (estilo iMessage) + tarjetas en abanico ===== -->
+  <section class="hero" data-scene="sticky" id="hero">
+    <div class="hero-stage">
+      <div class="fan" id="fan" aria-hidden="true"></div>
+      <div class="tags" id="tags" aria-hidden="true"></div>
+
+      <article class="profile" id="profile">
+        <div class="avatar" id="avatar" title="Foto de perfil"></div>
+        <h1 class="p-name" id="pName"></h1>
+        <p class="p-status"><span class="dot"></span><span id="pStatus"></span></p>
+        <div class="msgs" id="chat" aria-live="polite"></div>
+        <form class="bar" id="chatForm" autocomplete="off">
+          <input id="chatInput" placeholder="iMessage" readonly aria-label="Escribe un mensaje">
+          <button class="send" aria-label="Enviar">↑</button>
+        </form>
+      </article>
     </div>
-    <div class="hero__inner">
-      <h1 class="reveal">
-        <span class="line"><span>Jhael</span></span>
-        <span class="line"><span>B. Rivera</span></span>
-      </h1>
-      <p class="hero__tag">Crafting videos that people actually finish watching.</p>
-      <div class="hero__roles">
-        <span>Video Editor</span>
-        <span>Motion Designer</span>
-        <span>Designer</span>
-        <span>3D Artist</span>
+    <div class="scroll-hint" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- ===== SOBRE MÍ (texto que se ilumina al bajar) ===== -->
+  <section class="about" id="sobre" data-scene="pass">
+    <p class="reveal-words" id="about"></p>
+  </section>
+
+  <!-- ===== DESTACADOS (teléfono que sale de la caja) ===== -->
+  <section class="featured wrap" id="trabajo">
+    <header class="sec-head">
+      <h2 data-t="featured_title">Trabajos destacados</h2>
+      <p data-t="featured_sub"></p>
+    </header>
+    <div class="box-scene" data-scene="pass" id="boxScene">
+      <div class="box"></div>
+      <div class="box-clip">
+        <button class="phone" id="phone" aria-label="Ver proyecto destacado">
+          <span class="phone-screen" id="phoneScreen"></span>
+          <span class="phone-island"></span>
+        </button>
+      </div>
+      <div class="box-pills" id="boxPills" aria-hidden="true"></div>
+    </div>
+    <div class="feat-row" id="featRow"></div>
+  </section>
+
+  <!-- ===== MARQUESINA ===== -->
+  <div class="marquee" data-scene="pass" id="marquee" aria-hidden="true"><div class="marquee-track" id="marqueeTrack"></div></div>
+
+  <!-- ===== TODO EL TRABAJO (cuadrícula con filtros) ===== -->
+  <section class="work wrap" id="todo">
+    <header class="work-head">
+      <h2><span data-t="work_title">Mi trabajo</span><br><span class="soft" data-t="work_sub">De la idea a la entrega</span></h2>
+    </header>
+    <div class="work-bar">
+      <div class="filters" id="filters" role="tablist"></div>
+      <div class="ratio lg lg-light" role="group" aria-label="Formato">
+        <button class="on" data-format="vertical" aria-label="Vertical 9:16"><i class="ic-v"></i></button>
+        <button data-format="horizontal" aria-label="Horizontal 16:9"><i class="ic-h"></i></button>
       </div>
     </div>
-    <div class="scrollcue"><i></i><span>Scroll</span></div>
-  </header>
+    <div class="grid" id="grid"></div>
+    <button class="btn lg lg-blue more" id="moreWork" data-t="see_more">Ver más</button>
+  </section>
 
-  <!-- SELECTED WORK -->
-  <section id="work">
-    <div class="eyebrow">Selected Work</div>
-    <div class="work__head">
-      <h2>Cuts that hold attention.</h2>
-      <span class="work__count">2021 — 2026</span>
-    </div>
+  <!-- ===== TRAYECTORIA (bento) ===== -->
+  <section class="bento-sec wrap" id="trayectoria">
+    <header class="sec-head center">
+      <h2 data-t="background_title">Trayectoria</h2>
+      <p data-t="background_sub"></p>
+    </header>
+    <div class="bento" id="bento"></div>
+  </section>
 
-    <div class="card-grid in-section" id="featuredGrid"></div>
+  <!-- ===== WORKFLOW (pasos de trabajo) ===== -->
+  <section class="workflow wrap" id="workflow">
+    <header class="sec-head">
+      <h2 data-t="workflow_title">From idea to final cut.</h2>
+      <p data-t="workflow_sub"></p>
+    </header>
+    <div class="flow-row" id="flowRow"></div>
+  </section>
 
-    <div class="work__more">
-      <a href="archive.html" class="pill" data-cursor="hover">
-        <span>View full archive</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+  <!-- ===== GALERÍA (imágenes dispersas) ===== -->
+  <section class="gallery" id="galeria" data-scene="pass">
+    <div class="scatter" id="scatter" aria-hidden="true"></div>
+    <div class="gallery-center">
+      <h2 class="reveal-words" id="galleryTitle"></h2>
+      <button class="btn lg lg-dark" id="openGallery" data-t="gallery_button">Ver galería</button>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="eyebrow">About</div>
-    <p class="about__big" data-split>I edit like a director — every cut earns its place, every frame respects the viewer's time.</p>
-    <div class="about__grid">
-      <div class="stat"><div class="n" data-count="120">0</div><div class="l">Projects delivered</div></div>
-      <div class="stat"><div class="n" data-count="12">0</div><div class="l">Brands & creators</div></div>
-      <div class="stat"><div class="n" data-count="4">0</div><div class="l">Years editing</div></div>
-    </div>
+  <!-- ===== MENSAJES (testimonios) ===== -->
+  <section class="msec" id="mensajes" data-scene="pass">
+    <header class="sec-head center wrap">
+      <h2 data-t="messages_title">Lo que dicen</h2>
+      <p data-t="messages_sub"></p>
+    </header>
+    <div class="row" id="row1"></div>
+    <div class="row" id="row2"></div>
   </section>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="eyebrow">Services</div>
-    <div class="serv__list">
-      <a class="serv__row" data-cursor="hover">
-        <span class="idx">01</span>
-        <h3>Video Editing</h3>
-      </a>
-      
-      <a class="serv__row" data-cursor="hover">
-        <span class="idx">02</span>
-        <h3>Motion Graphics</h3>
-      </a>
-
-      <a class="serv__row" data-cursor="hover">
-        <span class="idx">03</span>
-        <h3>Branding</h3>
-      </a>
-
-
-      <a class="serv__row" data-cursor="hover">
-        <span class="idx">04</span>
-        <h3>Graphic Design</h3>
-      </a>
-
-      <a class="serv__row" data-cursor="hover">
-        <span class="idx">05</span>
-        <h3>Photography</h3>
-      </a>
-    </div>
-  </section>
-
-  <!-- WORKFLOW -->
-  <section class="flow" id="flow">
-    <div class="flow__sticky">
-      <div class="flow__track" id="flowTrack">
-        <div class="flow__intro">
-          <div class="eyebrow">Workflow</div>
-          <h2>From idea<br>to final cut.</h2>
-          <p>A repeatable rhythm that keeps projects calm and on time.</p>
-        </div>
-        <div class="step" style="background-image:url('assets/workflow/01-discovery.jpg');">
-          <div class="step__gradient"></div>
-          <div class="step__body"><span class="num">01</span><h4>Discovery</h4><p>Understand the goal, the audience and the hook before touching the timeline.</p></div>
-        </div>
-        <div class="step" style="background-image:url('assets/workflow/02-editing.jpg');">
-          <div class="step__gradient"></div>
-          <div class="step__body"><span class="num">02</span><h4>Editing</h4><p>Assembly, rhythm and structure — the cut that carries the story.</p></div>
-        </div>
-        <div class="step" style="background-image:url('assets/workflow/03-motion.jpg');">
-          <div class="step__gradient"></div>
-          <div class="step__body"><span class="num">03</span><h4>Motion</h4><p>Type, graphics and movement layered with intent, never noise.</p></div>
-        </div>
-        <div class="step" style="background-image:url('assets/workflow/04-sound.jpg');">
-          <div class="step__gradient"></div>
-          <div class="step__body"><span class="num">04</span><h4>Sound</h4><p>Mix, music and beats locked tight to the visual rhythm.</p></div>
-        </div>
-        <div class="step" style="background-image:url('assets/workflow/05-delivery.jpg');">
-          <div class="step__gradient"></div>
-          <div class="step__body"><span class="num">05</span><h4>Delivery</h4><p>Export formats tuned per platform — ready to publish, ready to perform.</p></div>
-        </div>
+  <!-- ===== CONTACTO ===== -->
+  <section class="contact wrap" id="contacto">
+    <header class="sec-head center">
+      <h2 data-t="contact_title">Say Hi!</h2>
+      <p data-t="contact_sub"></p>
+    </header>
+    <div class="compose">
+      <div class="to"><span data-t="contact_to">To:</span> <b id="toName"></b></div>
+      <label class="to"><span data-t="contact_from">From:</span> <input id="cName" autocomplete="name"></label>
+      <div class="compose-bar">
+        <textarea id="cMsg" rows="4"></textarea>
+        <a class="send" id="cMail" href="#" aria-label="Enviar por correo">↑</a>
       </div>
     </div>
+    <div class="alt"><a id="cWa" href="#" target="_blank" rel="noopener" data-t="contact_whatsapp">Mejor por WhatsApp</a></div>
+    <div class="socials" id="socials"></div>
   </section>
+</main>
 
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox">
-    <div class="lightbox__stage">
-      <button class="lightbox__close" id="lbClose" aria-label="Cerrar">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-      <div class="lightbox__video"><iframe id="lbFrame" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe></div>
-      <img class="lightbox__img" id="lbImg" src="" alt="">
-    </div>
-  </div>
+<footer class="foot">
+  <span id="copy">©</span> <span id="footName"></span>
+</footer>
 
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <div class="eyebrow">Let's work</div>
-    <h2>Have a project<br>in mind?</h2>
-    <a class="mailbtn" href="mailto:jhaelbaez01@gmail.com" data-cursor="hover" target="_blank"><span>Say Hello!</span></a>
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/jhaelbaez/" data-cursor="hover" target="_blank">LinkedIn</a>
-      <a href="https://www.instagram.com/champanasdepapi/" data-cursor="hover" target="_blank">Instagram</a>
-      <a href="http://wa.me/+18496070637" data-cursor="hover" target="_blank">WhatsApp</a>
-    </div>
-  </section>
+<!-- ===== VENTANAS (menú •••, visor de proyectos, galería) ===== -->
+<dialog class="sheet" id="sheet"><div class="sheet-in" id="sheetIn"></div></dialog>
+<dialog class="viewer" id="viewer"><div class="viewer-in" id="viewerIn"></div></dialog>
 
-  <footer>
-    <span>© 2026 Jhael Baez</span>
-    <span>Edited frame by frame.</span>
-  </footer>
-  <script src="data.js"></script>
-  <script src="script.js"></script>
+<!-- Filtro SVG del efecto "liquid glass" (lo usa js/liquid-glass.js) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="lgDefs"></defs></svg>
+
+<script src="js/liquid-glass.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

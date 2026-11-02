@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "q": "¿Puedo usar el material de esta página?",
+      "a": "No. Cada pieza pertenece a su autor o al cliente que la encargó y se muestra solo como portfolio. Si te interesa usar algo, escríbeme."
+    },
+    {
+      "q": "¿Quién tiene los derechos de un proyecto que te encargue?",
+      "a": "Lo definimos en el acuerdo antes de empezar. Lo habitual es que el cliente reciba los derechos de uso del trabajo final."
+    },
+    {
+      "q": "¿Por qué algunos trabajos no aparecen?",
+      "a": "Algunos proyectos son confidenciales o todavía no se han publicado."
+    },
+    {
+      "q": "¿Cuánto tardas y cómo cotizas?",
+      "a": "Depende del formato y la duración. Cuéntame el proyecto y te respondo en menos de 24 horas con plazos y precio."
+    },
+    {
+      "q": "¿Qué formatos entregas?",
+      "a": "Vertical 9:16, cuadrado 1:1 y horizontal 16:9, en MP4 o MOV. Los archivos fuente se acuerdan aparte."
+    }
+  ]
+}

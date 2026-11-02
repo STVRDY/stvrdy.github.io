@@ -1,0 +1,40 @@
+{
+  "image": "",
+  "stats": [
+    {
+      "value": 120,
+      "suffix": "+",
+      "label": "Proyectos realizados"
+    },
+    {
+      "value": 12,
+      "suffix": "+",
+      "label": "Marcas y creadores"
+    },
+    {
+      "value": 4,
+      "suffix": "",
+      "label": "Años editando"
+    }
+  ],
+  "programs": [
+    "Premiere Pro",
+    "After Effects",
+    "Photoshop",
+    "Blender",
+    "DaVinci Resolve"
+  ],
+  "languages": [
+    {
+      "name": "Español",
+      "level": "Nativo"
+    },
+    {
+      "name": "Inglés",
+      "level": "Profesional"
+    }
+  ],
+  "services": [],
+  "workflow": [],
+  "experience": []
+}

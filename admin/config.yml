@@ -1,0 +1,283 @@
+# =========================================================
+# PANEL DE ADMINISTRACIÓN (Sveltia CMS)
+# Lo único que tienes que cambiar aquí es la línea "repo".
+# =========================================================
+
+backend:
+  name: github
+  repo: STVRDY/stvrdy.github.io   # ← tu usuario de GitHub / nombre del repositorio
+  branch: main
+  commit_messages:
+    create: "Nuevo: {{slug}}"
+    update: "Actualizado: {{slug}}"
+    delete: "Borrado: {{slug}}"
+    uploadMedia: "Archivo subido: {{path}}"
+    deleteMedia: "Archivo borrado: {{path}}"
+
+site_url: https://stvrdy.github.io
+display_url: https://stvrdy.github.io
+
+# Dónde se guardan las fotos, videos cortos y PDF que subes
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+media_libraries:
+  default:
+    config:
+      max_file_size: 26214400   # 25 MB por archivo
+      transformations:
+        raster_image:           # las fotos se convierten a WebP y se reducen solas
+          format: webp
+          quality: 85
+          width: 2200
+
+collections:
+  - name: contenido
+    label: Contenido
+    icon: dashboard
+    files:
+
+      # ---------- PROYECTOS ----------
+      - name: proyectos
+        label: "Proyectos"
+        icon: movie
+        file: content/proyectos.json
+        format: json
+        fields:
+          - name: items
+            label: Proyectos
+            label_singular: proyecto
+            widget: list
+            add_to_top: true
+            collapsed: true
+            summary: "{{fields.title}} · {{fields.category}} · {{fields.format}}"
+            hint: "Arrastra para cambiar el orden. El primero de la lista sale primero en la web."
+            fields:
+              - { name: title, label: "Título", widget: string }
+              - { name: visible, label: "Visible en la web", widget: boolean, default: true, hint: "Apágalo para esconder la pieza sin borrarla." }
+              - { name: featured, label: "Destacado", widget: boolean, default: false, hint: "Los 4 primeros destacados salen en el teléfono y debajo de él." }
+              - name: category
+                label: "Categoría"
+                widget: select
+                default: video
+                options:
+                  - { label: "Video Editing", value: video }
+                  - { label: "Motion Graphics", value: motion }
+                  - { label: "Montage", value: montage }
+                  - { label: "Long Format", value: longform }
+                  - { label: "3D", value: render3d }
+                  - { label: "Branding", value: branding }
+                  - { label: "Diseño", value: diseno }
+                  - { label: "Foto", value: foto }
+              - name: format
+                label: "Formato"
+                widget: select
+                default: vertical
+                options:
+                  - { label: "Vertical 9:16", value: vertical }
+                  - { label: "Horizontal 16:9", value: horizontal }
+              - { name: youtube, label: "Enlace de YouTube", widget: string, required: false, hint: "Pega el enlace del video o del Short. Si no subes portada, se usa la miniatura de YouTube." }
+              - { name: cover, label: "Portada", widget: image, required: false, hint: "Recomendado. Vertical 1080×1920 u horizontal 1920×1080." }
+              - { name: video, label: "Video corto en bucle (opcional)", widget: file, required: false, accept: "video/mp4,video/webm", hint: "Solo loops cortos y livianos (menos de 25 MB, sin sonido). Los videos largos van en YouTube." }
+              - { name: images, label: "Más imágenes", widget: image, multiple: true, required: false }
+              - { name: client, label: "Cliente", widget: string, required: false }
+              - { name: role, label: "Tu rol", widget: string, required: false, hint: "Ej.: Edición y color" }
+              - { name: year, label: "Año", widget: string, required: false }
+              - { name: description, label: "Descripción", widget: text, required: false }
+
+      # ---------- PERFIL ----------
+      - name: perfil
+        label: "Perfil y contacto"
+        icon: person
+        file: content/perfil.json
+        format: json
+        fields:
+          - { name: name, label: "Nombre", widget: string }
+          - { name: role, label: "A qué te dedicas", widget: string }
+          - { name: status, label: "Estado", widget: string, hint: "Ej.: Disponible para proyectos" }
+          - { name: location, label: "Ubicación", widget: string, required: false }
+          - { name: avatar, label: "Foto de perfil", widget: image, required: false, hint: "Cuadrada, mínimo 400×400." }
+          - { name: logo, label: "Logo (círculo del menú)", widget: image, required: false, hint: "Si lo dejas vacío, el menú usa tu foto o tus iniciales." }
+          - { name: cv, label: "CV (PDF)", widget: file, required: false, accept: "application/pdf" }
+          - { name: email, label: "Correo", widget: string }
+          - { name: whatsapp, label: "WhatsApp", widget: string, required: false, hint: "Solo números, con código de país. Ej.: 18095551234" }
+          - name: chat
+            label: "Mensajes del chat de inicio"
+            widget: list
+            hint: "Se escriben solos, uno por uno, en la tarjeta de perfil."
+            field: { name: mensaje, label: "Mensaje", widget: string }
+          - { name: about, label: "Sobre mí (texto que se ilumina)", widget: text }
+          - name: tags
+            label: "Píldoras @ alrededor del perfil"
+            widget: list
+            field: { name: tag, label: "Texto", widget: string }
+          - name: marquee
+            label: "Palabras de la marquesina"
+            widget: list
+            field: { name: palabra, label: "Palabra", widget: string }
+          - name: socials
+            label: "Redes"
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: "Nombre", widget: string }
+              - { name: url, label: "Enlace", widget: string, required: false }
+
+      # ---------- TRAYECTORIA ----------
+      - name: trayectoria
+        label: "Trayectoria"
+        icon: workspace_premium
+        file: content/trayectoria.json
+        format: json
+        fields:
+          - { name: image, label: "Imagen de la tarjeta grande", widget: image, required: false }
+          - name: stats
+            label: "Cifras (las 3 primeras)"
+            widget: list
+            max: 3
+            summary: "{{fields.value}}{{fields.suffix}} {{fields.label}}"
+            fields:
+              - { name: value, label: "Número", widget: number, value_type: int }
+              - { name: suffix, label: "Sufijo", widget: string, required: false, hint: "Ej.: +  o  k+" }
+              - { name: label, label: "Texto", widget: string }
+          - name: programs
+            label: "Programas"
+            widget: list
+            field: { name: programa, label: "Programa", widget: string }
+          - name: languages
+            label: "Idiomas"
+            widget: list
+            summary: "{{fields.name}} · {{fields.level}}"
+            fields:
+              - { name: name, label: "Idioma", widget: string }
+              - { name: level, label: "Nivel", widget: string }
+          - name: services
+            label: "Servicios"
+            widget: list
+            field: { name: servicio, label: "Servicio", widget: string }
+          - name: workflow
+            label: "Workflow (pasos de trabajo)"
+            widget: list
+            summary: "{{fields.title}}"
+            hint: "Se numeran solos en el orden de la lista."
+            fields:
+              - { name: title, label: "Paso", widget: string }
+              - { name: text, label: "Descripción", widget: text }
+              - { name: image, label: "Imagen", widget: image, required: false }
+          - name: experience
+            label: "Experiencia"
+            widget: list
+            required: false
+            summary: "{{fields.role}} · {{fields.company}}"
+            fields:
+              - { name: role, label: "Puesto", widget: string }
+              - { name: company, label: "Empresa", widget: string }
+              - { name: years, label: "Años", widget: string, hint: "Ej.: 2025 — hoy" }
+
+      # ---------- GALERÍA ----------
+      - name: galeria
+        label: "Galería"
+        icon: photo_library
+        file: content/galeria.json
+        format: json
+        fields:
+          - name: items
+            label: "Imágenes"
+            label_singular: imagen
+            widget: list
+            add_to_top: true
+            summary: "{{fields.caption}}"
+            fields:
+              - { name: image, label: "Imagen", widget: image }
+              - { name: caption, label: "Texto corto", widget: string, required: false }
+
+      # ---------- MENSAJES ----------
+      - name: mensajes
+        label: "Mensajes de clientes"
+        icon: chat
+        file: content/mensajes.json
+        format: json
+        fields:
+          - name: items
+            label: "Mensajes"
+            label_singular: mensaje
+            widget: list
+            summary: "{{fields.name}} — {{fields.message}}"
+            fields:
+              - { name: name, label: "Nombre", widget: string }
+              - { name: company, label: "Empresa", widget: string, required: false }
+              - { name: message, label: "Mensaje", widget: string }
+              - { name: emoji, label: "Reacción", widget: string, default: "❤️", hint: "Un emoji." }
+
+      # ---------- PREGUNTAS FRECUENTES ----------
+      - name: faq
+        label: "Preguntas frecuentes"
+        icon: help
+        file: content/faq.json
+        format: json
+        fields:
+          - name: items
+            label: "Preguntas"
+            label_singular: pregunta
+            widget: list
+            summary: "{{fields.q}}"
+            fields:
+              - { name: q, label: "Pregunta", widget: string }
+              - { name: a, label: "Respuesta", widget: text }
+
+      # ---------- TEXTOS DE LA PÁGINA ----------
+      - name: textos
+        label: "Textos de la página (menú, títulos, botones)"
+        icon: translate
+        file: content/textos.json
+        format: json
+        fields:
+          - { name: lang, label: "Idioma de la página (en / es)", widget: string, required: false, hint: "Ahora: en" }
+          - { name: nav_work, label: "Menú: Trabajo", widget: string, required: false, hint: "Ahora: Work" }
+          - { name: nav_about, label: "Menú: Sobre mí", widget: string, required: false, hint: "Ahora: About" }
+          - { name: nav_background, label: "Menú: Trayectoria", widget: string, required: false, hint: "Ahora: Background" }
+          - { name: nav_gallery, label: "Menú: Galería", widget: string, required: false, hint: "Ahora: Gallery" }
+          - { name: say_hi, label: "Botón Say Hi", widget: string, required: false, hint: "Ahora: Say Hi!" }
+          - { name: featured_title, label: "Destacados: título", widget: string, required: false, hint: "Ahora: Selected work" }
+          - { name: featured_sub, label: "Destacados: subtítulo", widget: string, required: false, hint: "Ahora: Cuts that hold attention." }
+          - { name: work_title, label: "Trabajo: título", widget: string, required: false, hint: "Ahora: All work" }
+          - { name: work_sub, label: "Trabajo: subtítulo", widget: string, required: false, hint: "Ahora: 2021 — 2026" }
+          - { name: see_more, label: "Botón Ver más", widget: string, required: false, hint: "Ahora: See more" }
+          - { name: see_less, label: "Botón Ver menos", widget: string, required: false, hint: "Ahora: See less" }
+          - { name: background_title, label: "Trayectoria: título", widget: string, required: false, hint: "Ahora: Background" }
+          - { name: background_sub, label: "Trayectoria: subtítulo", widget: string, required: false, hint: "Ahora: What I do and the tools I do it with." }
+          - { name: programs_title, label: "Trayectoria: Programas", widget: string, required: false, hint: "Ahora: Tools" }
+          - { name: languages_title, label: "Trayectoria: Idiomas", widget: string, required: false, hint: "Ahora: Languages" }
+          - { name: experience_title, label: "Trayectoria: Experiencia", widget: string, required: false, hint: "Ahora: Experience" }
+          - { name: services_title, label: "Trayectoria: Servicios", widget: string, required: false, hint: "Ahora: Services" }
+          - { name: workflow_title, label: "Workflow: título", widget: string, required: false, hint: "Ahora: From idea to final cut." }
+          - { name: workflow_sub, label: "Workflow: subtítulo", widget: string, required: false, hint: "Ahora: A repeatable rhythm that keeps projects calm and on time." }
+          - { name: gallery_title, label: "Galería: título", widget: string, required: false, hint: "Ahora: Photography and design" }
+          - { name: gallery_button, label: "Galería: botón", widget: string, required: false, hint: "Ahora: Open gallery" }
+          - { name: messages_title, label: "Mensajes: título", widget: string, required: false, hint: "Ahora: Kind words" }
+          - { name: messages_sub, label: "Mensajes: subtítulo", widget: string, required: false, hint: "Ahora: Messages from clients and collaborators." }
+          - { name: contact_title, label: "Contacto: título", widget: string, required: false, hint: "Ahora: Have a project in mind?" }
+          - { name: contact_sub, label: "Contacto: subtítulo", widget: string, required: false, hint: "Ahora: Send me a message. I reply within 24 hours." }
+          - { name: contact_to, label: "Contacto: Para", widget: string, required: false, hint: "Ahora: To:" }
+          - { name: contact_from, label: "Contacto: De", widget: string, required: false, hint: "Ahora: From:" }
+          - { name: contact_name, label: "Contacto: campo nombre", widget: string, required: false, hint: "Ahora: Your name" }
+          - { name: contact_message, label: "Contacto: campo mensaje", widget: string, required: false, hint: "Ahora: Tell me about your project…" }
+          - { name: contact_whatsapp, label: "Contacto: enlace WhatsApp", widget: string, required: false, hint: "Ahora: Message me on WhatsApp" }
+          - { name: faq_title, label: "Menú •••: título preguntas", widget: string, required: false, hint: "Ahora: FAQ" }
+          - { name: cv_button, label: "Menú •••: botón CV", widget: string, required: false, hint: "Ahora: Download CV" }
+          - { name: close, label: "Menú •••: botón cerrar", widget: string, required: false, hint: "Ahora: Close" }
+          - { name: cat_all, label: "Filtro: Todo", widget: string, required: false, hint: "Ahora: All" }
+          - { name: cat_video, label: "Filtro: Video", widget: string, required: false, hint: "Ahora: Video Editing" }
+          - { name: cat_motion, label: "Filtro: Motion", widget: string, required: false, hint: "Ahora: Motion Graphics" }
+          - { name: cat_montage, label: "Filtro: Montage", widget: string, required: false, hint: "Ahora: Montage" }
+          - { name: cat_longform, label: "Filtro: Long Format", widget: string, required: false, hint: "Ahora: Long Format" }
+          - { name: cat_render3d, label: "Filtro: 3D", widget: string, required: false, hint: "Ahora: 3D" }
+          - { name: cat_branding, label: "Filtro: Branding", widget: string, required: false, hint: "Ahora: Branding" }
+          - { name: cat_diseno, label: "Filtro: Diseño", widget: string, required: false, hint: "Ahora: Graphic Design" }
+          - { name: cat_foto, label: "Filtro: Foto", widget: string, required: false, hint: "Ahora: Photography" }
+          - { name: delivered, label: "Chat: Entregado", widget: string, required: false, hint: "Ahora: Delivered" }
+          - { name: chat_placeholder, label: "Chat: texto de la barra", widget: string, required: false, hint: "Ahora: iMessage" }
+          - { name: chat_reply, label: "Chat: respuesta automática", widget: string, required: false, hint: "Ahora: Thanks! So it actually reaches me, send it by" }
+          - { name: chat_email, label: "Chat: palabra 'correo'", widget: string, required: false, hint: "Ahora: email" }
+          - { name: chat_or, label: "Chat: palabra 'o'", widget: string, required: false, hint: "Ahora: or" }
+          - { name: footer_note, label: "Pie de página: frase", widget: string, required: false, hint: "Ahora: Edited frame by frame." }
