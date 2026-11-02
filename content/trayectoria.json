@@ -37,7 +37,14 @@
     }
   ],
   "services": [
-    "Editor de video"
+    "Editor de video",
+    "Motion Graphics",
+    "3D Product Visualization",
+    "Color Grading",
+    "Sound Design",
+    "Visual Design",
+    "Photography",
+    "Video Production"
   ],
   "workflow": [],
   "experience": [
