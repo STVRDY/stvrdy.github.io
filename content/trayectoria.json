@@ -42,8 +42,28 @@
   "workflow": [
     {
       "title": "Discovery",
-      "text": "Descubrir el proyecto",
+      "text": "Definimos tus objetivos, audiencia y necesidades para establecer la dirección creativa del proyecto.",
       "image": "/assets/uploads/workflow-01-discovery.webp"
+    },
+    {
+      "title": "Editing",
+      "text": "Transformo el material en una narrativa dinámica, cuidando el ritmo, la estructura y la claridad del mensaje.",
+      "image": "/assets/uploads/workflow-02-editing.webp"
+    },
+    {
+      "title": "Motion",
+      "text": "Añadimos movimiento, gráficos y efectos visuales que refuerzan la identidad de tu marca y mantienen la atención.",
+      "image": "/assets/uploads/workflow-03-motion.webp"
+    },
+    {
+      "title": "Soun",
+      "text": "Integramos música, efectos y diseño sonoro para darle profundidad, energía y personalidad al video.",
+      "image": "/assets/uploads/workflow-04-sound.webp"
+    },
+    {
+      "title": "Delivery",
+      "text": "Recibes el video final optimizado para tus plataformas, listo para publicar y alineado con los objetivos del proyecto.",
+      "image": "/assets/uploads/workflow-05-delivery.webp"
     }
   ],
   "experience": [
