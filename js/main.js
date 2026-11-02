@@ -318,7 +318,7 @@ function renderBento(d) {
       <header class="xp-head"><h3>${esc(T.experience_title || '')}</h3><span>${xp.length} ${esc(T.experience_count || '')}</span></header>
       <ol class="xp">${xp.map((e, i) => `
         <li class="xp-i${isNow(e) ? ' is-now' : ''}" style="--n:${i}">
-          <span class="xp-logo">${e.logo ? `<img src="${esc(url(e.logo))}" alt="${esc(e.company)}" loading="lazy">` : `<b>${esc(initials(e.company))}</b>`}</span>
+          <span class="xp-logo">${e.logo ? `<img src="${esc(url(e.logo))}" alt="${esc(e.company)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('b'), { textContent: '${esc(initials(e.company))}' }))">` : `<b>${esc(initials(e.company))}</b>`}</span>
           <div class="xp-txt"><b>${esc(e.role)}</b><span>${esc(e.company)}</span>${e.description ? `<p>${esc(e.description)}</p>` : ''}</div>
           <div class="xp-when">${isNow(e) ? `<span class="now"><i></i>${esc(T.experience_now || 'Actual')}</span>` : ''}<em>${esc(e.years || '')}</em></div>
         </li>`).join('')}</ol></div>` : ''}`;

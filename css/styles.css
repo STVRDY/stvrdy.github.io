@@ -525,11 +525,11 @@ details p { color: var(--mut); margin: 8px 0 0; }
 .xp-head span { color: #8e8e93; font-size: 14px; }
 .xp { position: relative; z-index: 2; list-style: none; margin: clamp(20px, 2vw, 34px) 0 0; padding: 0; display: grid; gap: 6px; --lx: calc(clamp(56px, 4.2vw, 72px) / 2); }
 /* línea gris + línea de luz que se llena al bajar */
-.xp::before, .xp::after { content: ""; position: absolute; left: var(--lx); top: 34px; width: 2px; transform: translateX(-1px); border-radius: 2px; }
+.xp::before, .xp::after { content: ""; position: absolute; z-index: 0; left: var(--lx); top: 34px; width: 2px; transform: translateX(-1px); border-radius: 2px; }
 .xp::before { bottom: 34px; background: rgba(255,255,255,.1); }
 .xp::after { height: calc(clamp(0, var(--p, 0) * 2 - .45, 1) * (100% - 68px)); background: linear-gradient(#0a84ff, #bf5af2); box-shadow: 0 0 14px rgba(10,132,255,.8); }
 .xp-i {
-  position: relative; display: grid; grid-template-columns: auto 1fr auto; gap: clamp(14px, 1.4vw, 26px); align-items: center;
+  position: relative; z-index: 1; display: grid; grid-template-columns: auto 1fr auto; gap: clamp(14px, 1.4vw, 26px); align-items: center;
   padding: 14px 18px 14px 0; border-radius: 22px;
   opacity: 0; transform: translateX(-26px); transition: opacity .7s, transform .8s cubic-bezier(.2,.8,.2,1), background .3s; transition-delay: calc(var(--n, 0) * 110ms + 200ms);
 }
@@ -540,7 +540,7 @@ details p { color: var(--mut); margin: 8px 0 0; }
   background: #16181d; border: 1px solid rgba(255,255,255,.14); color: #fff; font-weight: 700; font-size: clamp(16px, 1.1vw, 20px);
   box-shadow: 0 0 0 6px #07080b, 0 12px 30px rgba(0,0,0,.5); transition: transform .4s cubic-bezier(.3,1.6,.5,1), box-shadow .4s;
 }
-.xp-logo img { width: 100%; height: 100%; object-fit: contain; background: #fff; padding: 14%; }
+.xp-logo img { width: 100%; height: 100%; object-fit: cover; background: #fff; display: block; }
 .xp-i.in .xp-logo { animation: ring 1.2s ease-out both; animation-delay: calc(var(--n, 0) * 110ms + 300ms); }
 @keyframes ring { 0% { box-shadow: 0 0 0 6px #07080b, 0 0 0 6px rgba(10,132,255,.0); } 40% { box-shadow: 0 0 0 6px #07080b, 0 0 0 14px rgba(10,132,255,.35); } 100% { box-shadow: 0 0 0 6px #07080b, 0 12px 30px rgba(0,0,0,.5); } }
 .xp-i:hover .xp-logo { transform: scale(1.08) rotate(-4deg); }
