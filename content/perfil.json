@@ -3,24 +3,26 @@
   "role": "Editor de video · Motion graphics · 3D",
   "status": "Disponible para proyectos",
   "location": "República Dominicana",
-  "avatar": "",
-  "logo": "",
-  "cv": "",
+  "avatar": "/assets/uploads/20230407_1812442.webp",
+  "logo": "/assets/uploads/logo.svg",
+  "cv": "/assets/uploads/CV - Jhael Baez.pdf",
   "email": "jhaelbaez01@gmail.com",
   "whatsapp": "18496070637",
   "chat": [
-    "Hola 👋 soy Jhael",
-    "Edito video vertical, motion graphics y renders 3D.",
-    "Contenido hecho para que la gente no deje de mirar.",
-    "Baja y mira lo que he hecho ↓"
+    "Hola, soy Jhael Báez 👋",
+    "Editor de video especializado en contenido vertical, motion graphics y renders 3D.",
+    "Creo contenido visual diseñado para captar la atención, mantener el interés y comunicar ideas de forma efectiva.",
+    "Explora mi portfolio y descubre algunos de mis proyectos"
   ],
   "about": "Edito para la pantalla que todos llevan en el bolsillo. Ritmo, color y movimiento pensados para los primeros tres segundos, porque ahí se gana o se pierde a la audiencia.",
   "tags": [
-    "Premiere Pro",
-    "After Effects",
+    "Adobe Premiere Pro",
+    "Adobe After Effects",
     "Blender",
     "DaVinci Resolve",
-    "Photoshop"
+    "Adobe Photoshop",
+    "Adobe Illustrator",
+    "Adobe InDesign"
   ],
   "marquee": [
     "Rápido",
