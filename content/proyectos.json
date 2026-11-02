@@ -3,7 +3,7 @@
     {
       "title": "Reel de verano",
       "visible": true,
-      "featured": false,
+      "featured": true,
       "category": "video",
       "format": "vertical",
       "youtube": "https://www.youtube.com/shorts/nOKuO8fzsg8",
@@ -63,7 +63,7 @@
     {
       "title": "Montage - STUDIO X",
       "visible": true,
-      "featured": false,
+      "featured": true,
       "category": "montage",
       "format": "vertical",
       "youtube": "https://youtube.com/shorts/er4Kr_eoAIc",
@@ -78,7 +78,7 @@
     {
       "title": "Reel - Real Estate",
       "visible": true,
-      "featured": false,
+      "featured": true,
       "category": "video",
       "format": "vertical",
       "youtube": "https://youtube.com/shorts/YUSVaZEwwZk",
@@ -123,7 +123,7 @@
     {
       "title": "NK Beauty - Montage",
       "visible": true,
-      "featured": false,
+      "featured": true,
       "category": "video",
       "format": "vertical",
       "youtube": "https://youtube.com/shorts/OxPAcA3ZTbo",
@@ -138,7 +138,7 @@
     {
       "title": "Logo - Animación 2D",
       "visible": true,
-      "featured": false,
+      "featured": true,
       "category": "video",
       "format": "vertical",
       "youtube": "https://youtube.com/shorts/FF5_YjyM9HA",
