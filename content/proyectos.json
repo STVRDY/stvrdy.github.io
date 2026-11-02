@@ -149,6 +149,57 @@
       "role": "Diseñador, Animación",
       "year": "2025",
       "description": ""
+    },
+    {
+      "title": "EnordenRD - Carrousel",
+      "visible": true,
+      "featured": false,
+      "category": "diseno",
+      "format": "vertical",
+      "youtube": "",
+      "cover": "/assets/uploads/m63.webp",
+      "video": "",
+      "images": [
+        "/assets/uploads/m64.webp",
+        "/assets/uploads/m65.webp"
+      ],
+      "client": "EnordenRD",
+      "role": "Diseñador",
+      "year": "2025",
+      "description": ""
+    },
+    {
+      "title": "Alineación vs Balanceo",
+      "visible": true,
+      "featured": true,
+      "category": "diseno",
+      "format": "vertical",
+      "youtube": "",
+      "cover": "/assets/uploads/m66.webp",
+      "video": "",
+      "images": [],
+      "client": "Caremax",
+      "role": "Diseñador",
+      "year": "2025",
+      "description": ""
+    },
+    {
+      "title": "Fotografía Deportiva",
+      "visible": true,
+      "featured": false,
+      "category": "video",
+      "format": "vertical",
+      "youtube": "",
+      "cover": "/assets/uploads/m44.webp",
+      "video": "",
+      "images": [
+        "/assets/uploads/m46.webp",
+        "/assets/uploads/m69.webp"
+      ],
+      "client": "Sauce League",
+      "role": "Fotógrafo, Editor",
+      "year": "2026",
+      "description": ""
     }
   ]
 }
