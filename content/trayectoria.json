@@ -39,58 +39,55 @@
   "services": [
     "Editor de video"
   ],
-  "workflow": [
-    {
-      "title": "Discovery",
-      "text": "Definimos tus objetivos, audiencia y necesidades para establecer la dirección creativa del proyecto.",
-      "image": "/assets/uploads/workflow-01-discovery.webp"
-    },
-    {
-      "title": "Editing",
-      "text": "Transformo el material en una narrativa dinámica, cuidando el ritmo, la estructura y la claridad del mensaje.",
-      "image": "/assets/uploads/workflow-02-editing.webp"
-    },
-    {
-      "title": "Motion",
-      "text": "Añadimos movimiento, gráficos y efectos visuales que refuerzan la identidad de tu marca y mantienen la atención.",
-      "image": "/assets/uploads/workflow-03-motion.webp"
-    },
-    {
-      "title": "Sound",
-      "text": "Integramos música, efectos y diseño sonoro para darle profundidad, energía y personalidad al video.",
-      "image": "/assets/uploads/workflow-04-sound.webp"
-    },
-    {
-      "title": "Delivery",
-      "text": "Recibes el video final optimizado para tus plataformas, listo para publicar y alineado con los objetivos del proyecto.",
-      "image": "/assets/uploads/workflow-05-delivery.webp"
-    }
-  ],
+  "workflow": [],
   "experience": [
     {
-      "role": "Video Editor",
-      "company": "Wings Store",
-      "years": "Ago - Actualidad"
-    },
-    {
-      "role": "Video Editor",
-      "company": "Revenue Black",
-      "years": "Mar. 2026 - May. 2026"
-    },
-    {
-      "role": "Soporte Multimedia",
-      "company": "Urban Realty Group",
-      "years": "Dic. 2025 - Mar. 2026"
+      "role": "Editor Freelance",
+      "company": "Martinez Device",
+      "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwSumwZRHU4zCWBXxOZE7phIq063A4rDQFxs2cRaLJ7C7F5g6fUptBiyQ&s=10",
+      "years": "2026",
+      "current": false,
+      "description": ""
     },
     {
       "role": "Fotógrafo Deportivo",
       "company": "Sauce League",
-      "years": "2025 - 2026"
+      "logo": "https://scontent.cdninstagram.com/v/t51.75761-19/505757607_17842901715510683_2213968601603616563_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=104&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=Nj9Vhyo0jM4Q7kNvwFpaZyK&_nc_oc=Adqz6IvZ9xqg9n8tn6g1BVGRDpFmMCGDFmRB-DeGhnXq7b9KDz8MaVaAJ0sqf81l2N0&_nc_zt=24&_nc_ht=scontent.cdninstagram.com&_nc_gid=Jx5WOXRBERfGjxRX8zM2nw&_nc_ss=7b689&oh=00_AQQq6l9sfIKfN19O29UnmsExq9le_PJEUMrWfSu0aTonDQ&oe=6AEEC937",
+      "years": "2025 - 2026",
+      "current": false,
+      "description": ""
     },
     {
-      "role": "Editor Freelance",
-      "company": "Martinez Device",
-      "years": "2026"
+      "role": "Soporte Multimedia",
+      "company": "Urban Realty Group",
+      "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpJmJ0FVXc9Alpp9DaQ-nMcJIxARckionqaFvwQqdQ7vm1kamf2LgUUBI&s=10",
+      "years": "Dic. 2025 - Mar. 2026",
+      "current": false,
+      "description": ""
+    },
+    {
+      "role": "Video Editor",
+      "company": "Revenue Black",
+      "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPLLd_7T3LLoQkxtIhRhiVtHU_dIrfIrh3OCjkkhsTCw&s",
+      "years": "Mar. 2026 - May. 2026",
+      "current": false,
+      "description": ""
+    },
+    {
+      "role": "Video Editor",
+      "company": "Wings Store",
+      "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0rMM7WrbG4NA8Kgb1UKoWpJK7EJXRInkOfidMRl95yEFqMfTpF2shAqeE&s=10",
+      "years": "Ago - Actualidad",
+      "current": true,
+      "description": ""
+    },
+    {
+      "role": "Soporte Multimedia",
+      "company": "NMK",
+      "logo": "https://nmkcorp.com/favicon.png",
+      "years": "2026 - Actualidad",
+      "current": true,
+      "description": ""
     }
   ]
 }
