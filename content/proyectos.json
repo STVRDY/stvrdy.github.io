@@ -18,7 +18,7 @@
     {
       "title": "Montage - Toyota BRZ",
       "visible": true,
-      "featured": false,
+      "featured": true,
       "category": "montage",
       "format": "vertical",
       "youtube": "https://youtube.com/shorts/beKDFqerR-Y?si=YmDvW02FxY5byqAv",
@@ -46,19 +46,19 @@
       "description": "Animación - Logo 2D"
     },
     {
-      "title": "Spot de marca",
+      "title": "iPhone 17 Pro - Add to cart",
       "visible": true,
       "featured": true,
-      "category": "video",
+      "category": "motion",
       "format": "vertical",
-      "youtube": "",
-      "cover": "",
+      "youtube": "https://youtube.com/shorts/RwrLyA96AKI",
+      "cover": "/assets/uploads/cover-apple.webp",
       "video": "",
       "images": [],
-      "client": "",
-      "role": "",
-      "year": "",
-      "description": ""
+      "client": "Proyecto personal",
+      "role": "Animador",
+      "year": "2026",
+      "description": "iPhone 17 Pro - Add to cart"
     },
     {
       "title": "Cartel de evento",
