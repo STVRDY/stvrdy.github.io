@@ -1,36 +1,40 @@
 {
   "items": [
     {
-      "image": "",
-      "caption": "Retrato"
+      "image": "/assets/uploads/m1.webp",
+      "caption": "Fotografía de producto"
     },
     {
-      "image": "",
-      "caption": "Render"
+      "image": "/assets/uploads/m2.webp",
+      "caption": "Fotografía de producto"
     },
     {
-      "image": "",
-      "caption": "Producto"
+      "image": "/assets/uploads/m3.webp",
+      "caption": "Fotografía de producto"
     },
     {
-      "image": "",
-      "caption": "Calle"
+      "image": "/assets/uploads/m38.webp",
+      "caption": "Diseño de portada"
     },
     {
-      "image": "",
-      "caption": "Póster"
+      "image": "/assets/uploads/m39.webp",
+      "caption": "Diseño de portada"
     },
     {
-      "image": "",
-      "caption": "Arquitectura"
+      "image": "/assets/uploads/m41.webp",
+      "caption": "Diseño de portada"
     },
     {
-      "image": "",
-      "caption": "Moda"
+      "image": "/assets/uploads/m63.webp",
+      "caption": "Carrousel - EnordenRD"
     },
     {
-      "image": "",
-      "caption": "Abstracto"
+      "image": "/assets/uploads/m64.webp",
+      "caption": "Carrousel - EnordenRD"
+    },
+    {
+      "image": "/assets/uploads/m65.webp",
+      "caption": "Carrousel - EnordenRD"
     }
   ]
 }
