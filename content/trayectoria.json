@@ -2,27 +2,29 @@
   "image": "",
   "stats": [
     {
-      "value": 120,
+      "value": 50,
       "suffix": "+",
       "label": "Proyectos realizados"
     },
     {
-      "value": 12,
+      "value": 6,
       "suffix": "+",
       "label": "Marcas y creadores"
     },
     {
-      "value": 4,
-      "suffix": "",
+      "value": 5,
+      "suffix": "+",
       "label": "Años editando"
     }
   ],
   "programs": [
-    "Premiere Pro",
-    "After Effects",
-    "Photoshop",
+    "Adobe Premiere Pro",
+    "Adobe After Effects",
+    "Adobe Photoshop",
     "Blender",
-    "DaVinci Resolve"
+    "DaVinci Resolve",
+    "Adobe Illustrator",
+    "Adobe InDesign"
   ],
   "languages": [
     {
@@ -31,10 +33,44 @@
     },
     {
       "name": "Inglés",
-      "level": "Profesional"
+      "level": "Intermedio"
     }
   ],
-  "services": [],
-  "workflow": [],
-  "experience": []
+  "services": [
+    "Editor de video"
+  ],
+  "workflow": [
+    {
+      "title": "Discovery",
+      "text": "Descubrir el proyecto",
+      "image": "/assets/uploads/workflow-01-discovery.webp"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Video Editor",
+      "company": "Wings Store",
+      "years": "Ago - Actualidad"
+    },
+    {
+      "role": "Video Editor",
+      "company": "Revenue Black",
+      "years": "Mar. 2026 - May. 2026"
+    },
+    {
+      "role": "Soporte Multimedia",
+      "company": "Urban Realty Group",
+      "years": "Dic. 2025 - Mar. 2026"
+    },
+    {
+      "role": "Fotógrafo Deportivo",
+      "company": "Sauce League",
+      "years": "2025 - 2026"
+    },
+    {
+      "role": "Editor Freelance",
+      "company": "Martinez Device",
+      "years": "2026"
+    }
+  ]
 }
