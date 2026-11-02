@@ -1,6 +1,51 @@
 {
   "items": [
     {
+      "title": "Stand Animation - Wings Store",
+      "visible": true,
+      "featured": true,
+      "category": "motion",
+      "format": "vertical",
+      "youtube": "https://youtube.com/shorts/RCstreXwEh8",
+      "cover": "/assets/uploads/IMdL_dugFDQJE.webp",
+      "video": "",
+      "images": [],
+      "client": "Wings Store",
+      "role": "Editor, Animador",
+      "year": "Oct. 2026",
+      "description": ""
+    },
+    {
+      "title": "Character Animation - Wings Store",
+      "visible": true,
+      "featured": true,
+      "category": "motion",
+      "format": "vertical",
+      "youtube": "https://youtube.com/shorts/WK-DRBWBCA4",
+      "cover": "/assets/uploads/thumbnail-1793652573620.webp",
+      "video": "",
+      "images": [],
+      "client": "Wings Store",
+      "role": "Animador",
+      "year": "Sep. 2026",
+      "description": ""
+    },
+    {
+      "title": "Stand Animation - Wings Store",
+      "visible": true,
+      "featured": true,
+      "category": "motion",
+      "format": "horizontal",
+      "youtube": "https://youtu.be/xDY5jzeWzNY",
+      "cover": "https://i9.ytimg.com/vi_webp/xDY5jzeWzNY/mq1.webp?sqp=CMzso9cG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGBMgSSh_MA8=&rs=AOn4CLC6W0-Ll4teaGhjQPIarVw5o9D-Jw",
+      "video": "",
+      "images": [],
+      "client": "Wings Store",
+      "role": "Animador",
+      "year": "Sep. 2026",
+      "description": ""
+    },
+    {
       "title": "Reel de verano",
       "visible": true,
       "featured": true,
