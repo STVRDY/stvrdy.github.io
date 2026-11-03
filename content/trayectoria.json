@@ -37,14 +37,15 @@
     }
   ],
   "services": [
-    "Editor de video",
-    "Motion Graphics",
-    "3D Product Visualization",
-    "Color Grading",
-    "Sound Design",
-    "Visual Design",
-    "Photography",
-    "Video Production"
+    "Edición de video",
+    "Animación y gráficos en movimiento",
+    "Modelado y renderizado 3D",
+    "Corrección y gradación de color",
+    "Diseño de sonido",
+    "Diseño gráfico",
+    "Fotografía",
+    "Grabación de video",
+    "Creación de contenido para redes sociales"
   ],
   "workflow": [],
   "experience": [
@@ -54,7 +55,7 @@
       "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwSumwZRHU4zCWBXxOZE7phIq063A4rDQFxs2cRaLJ7C7F5g6fUptBiyQ&s=10",
       "years": "2026",
       "current": false,
-      "description": ""
+      "description": "Edición de contenido audiovisual para una empresa dedicada a la reparación y mantenimiento de dispositivos electrónicos. Producción de videos cortos para redes sociales, mostrando servicios, reparaciones y contenido promocional orientado a dar visibilidad al negocio."
     },
     {
       "role": "Fotógrafo Deportivo",
@@ -62,7 +63,7 @@
       "logo": "https://scontent.cdninstagram.com/v/t51.75761-19/505757607_17842901715510683_2213968601603616563_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=104&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=Nj9Vhyo0jM4Q7kNvwFpaZyK&_nc_oc=Adqz6IvZ9xqg9n8tn6g1BVGRDpFmMCGDFmRB-DeGhnXq7b9KDz8MaVaAJ0sqf81l2N0&_nc_zt=24&_nc_ht=scontent.cdninstagram.com&_nc_gid=Jx5WOXRBERfGjxRX8zM2nw&_nc_ss=7b689&oh=00_AQQq6l9sfIKfN19O29UnmsExq9le_PJEUMrWfSu0aTonDQ&oe=6AEEC937",
       "years": "2025 - 2026",
       "current": false,
-      "description": ""
+      "description": "Cobertura fotográfica de encuentros y actividades de una liga local de baloncesto. Captura de momentos destacados, jugadas, atletas y ambiente deportivo, generando contenido visual para documentar y compartir las actividades de la liga en sus plataformas digitales."
     },
     {
       "role": "Soporte Multimedia",
@@ -70,7 +71,7 @@
       "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpJmJ0FVXc9Alpp9DaQ-nMcJIxARckionqaFvwQqdQ7vm1kamf2LgUUBI&s=10",
       "years": "Dic. 2025 - Mar. 2026",
       "current": false,
-      "description": ""
+      "description": "Apoyo en la producción de contenido multimedia y comunicación visual de la empresa. Edición de video, asistencia en sesiones fotográficas, retoque y edición de fotografías de retratos, diseño gráfico y creación de recursos visuales para diferentes necesidades de la empresa.\n\nParticipación en distintas etapas de producción y postproducción audiovisual, colaborando con diferentes áreas según los requerimientos de cada proyecto."
     },
     {
       "role": "Video Editor",
@@ -78,23 +79,31 @@
       "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPLLd_7T3LLoQkxtIhRhiVtHU_dIrfIrh3OCjkkhsTCw&s",
       "years": "Mar. 2026 - May. 2026",
       "current": false,
-      "description": ""
+      "description": "Edición de contenido audiovisual para campañas publicitarias y estrategias de marketing digital de diferentes marcas y empresas. Producción de videos cortos para redes sociales, anuncios de pago y contenido orientado a la conversión. Realización de ajustes visuales y retoques de material audiovisual según las necesidades de cada proyecto."
     },
     {
-      "role": "Video Editor",
-      "company": "Wings Store",
-      "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0rMM7WrbG4NA8Kgb1UKoWpJK7EJXRInkOfidMRl95yEFqMfTpF2shAqeE&s=10",
-      "years": "Ago. 2026 - Actualidad",
+      "role": "Fotógrafo/Videógrafo freelance",
+      "company": "UNAGUI",
+      "logo": "https://scontent.cdninstagram.com/v/t51.82787-19/799388080_18119082101489678_7105659547586274713_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&ig_cache_key=GLCxpS8OwFCMNV9AAJklvgy2X5xibmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy45MDAuQzMifQ%3D%3D&_nc_ohc=qBt-cb4CghwQ7kNvwG2n5b6&_nc_oc=Adp9ZdV0pmWMI_1hbesJuTkicjjmdyAcljRSJTA3IarLYh_NiQMIsWSAVIUJwtG6tTY&_nc_zt=24&_nc_ht=scontent.cdninstagram.com&_nc_gid=G7t9avNtckgPkwVmtJioPg&_nc_ss=7b689&oh=00_AQRm9jJWdVZ5lraz0YGew3ATHr5kR8wAOef723kOnrOraQ&oe=6AEFC88E",
+      "years": "Sep. 2026 - Actualidad",
       "current": true,
-      "description": ""
+      "description": "Producción de contenido audiovisual para el restaurante, incluyendo fotografía gastronómica, fotografía de instalaciones y retratos del chef. Creación de material visual para su presencia digital y producción de contenido en video para redes sociales."
     },
     {
-      "role": "Soporte Multimedia",
+      "role": "Editor de video / Diseñador gráfico freelance",
       "company": "NMK",
       "logo": "https://nmkcorp.com/favicon.png",
       "years": "Ago. 2026 - Actualidad",
       "current": true,
-      "description": ""
+      "description": "Producción de piezas audiovisuales y gráficas para campañas de marketing digital de diferentes marcas y empresas. Edición de videos publicitarios, creación de portadas y desarrollo de recursos visuales para contenido digital y campañas orientadas a la captación de clientes potenciales (leads)."
+    },
+    {
+      "role": "Editor de video | Contratista independiente",
+      "company": "Wings Store",
+      "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0rMM7WrbG4NA8Kgb1UKoWpJK7EJXRInkOfidMRl95yEFqMfTpF2shAqeE&s=10",
+      "years": "Ago. 2026 - Actualidad",
+      "current": true,
+      "description": "Edición y producción de contenido audiovisual para redes sociales, incluyendo Reels, anuncios publicitarios, promociones y campañas digitales. Desarrollo de grillas de contenido y piezas audiovisuales diseñadas para captar la atención y generar interacción.\n\nTambién he participado en proyectos especiales de animación y gráficos en movimiento para espacios publicitarios y stands de eventos, incluyendo Gamergy."
     }
   ]
 }
