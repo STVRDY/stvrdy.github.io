@@ -188,24 +188,6 @@ collections:
               - { name: current, label: "Es mi trabajo actual", widget: boolean, default: false, required: false, hint: "Muestra la etiqueta verde 'Actual'. También sale sola si las fechas dicen 'Actualidad' o 'hoy'." }
               - { name: description, label: "Qué hacías (opcional)", widget: text, required: false }
 
-      # ---------- GALERÍA ----------
-      - name: galeria
-        label: "Galería"
-        icon: photo_library
-        file: content/galeria.json
-        format: json
-        fields:
-          - name: items
-            label: "Imágenes"
-            label_singular: imagen
-            widget: list
-            required: false
-            add_to_top: true
-            summary: "{{fields.caption}}"
-            fields:
-              - { name: image, label: "Imagen", widget: image }
-              - { name: caption, label: "Texto corto", widget: string, required: false }
-
       # ---------- MENSAJES ----------
       - name: mensajes
         label: "Mensajes de clientes"
@@ -221,9 +203,24 @@ collections:
             summary: "{{fields.name}} — {{fields.message}}"
             fields:
               - { name: name, label: "Nombre", widget: string }
-              - { name: company, label: "Empresa", widget: string, required: false }
-              - { name: message, label: "Mensaje", widget: string }
-              - { name: emoji, label: "Reacción", widget: string, default: "❤️", hint: "Un emoji." }
+              - { name: role, label: "Cargo (debajo del nombre)", widget: string, required: false, hint: "Ej.: Dirección creativa. Si lo dejas vacío dice 'Cliente'." }
+              - { name: photo, label: "Foto", widget: image, required: false, hint: "Si no hay foto, salen sus iniciales." }
+              - { name: company, label: "Empresa (arriba a la izquierda)", widget: string, required: false }
+              - { name: date, label: "Fecha (arriba a la derecha)", widget: string, required: false, hint: "Ej.: Mar. 2026" }
+              - { name: message, label: "Mensaje", widget: text }
+              - { name: emoji, label: "Emoji de la pestaña", widget: string, default: "⚡", required: false }
+              - { name: tag, label: "Frase de la pestaña", widget: string, required: false, hint: "Corta. Ej.: Entrega en 24 horas. Si la dejas vacía, sale la empresa." }
+              - name: color
+                label: "Color de la pestaña"
+                widget: select
+                required: false
+                options:
+                  - { label: "Verde", value: verde }
+                  - { label: "Azul", value: azul }
+                  - { label: "Rosa", value: rosa }
+                  - { label: "Naranja", value: naranja }
+                  - { label: "Morado", value: morado }
+                  - { label: "Amarillo", value: amarillo }
 
       # ---------- PREGUNTAS FRECUENTES ----------
       - name: faq
@@ -253,7 +250,6 @@ collections:
           - { name: nav_work, label: "Menú: Trabajo", widget: string, required: false, hint: "Ahora: Trabajo" }
           - { name: nav_about, label: "Menú: Sobre mí", widget: string, required: false, hint: "Ahora: Sobre mí" }
           - { name: nav_background, label: "Menú: Trayectoria", widget: string, required: false, hint: "Ahora: Trayectoria" }
-          - { name: nav_gallery, label: "Menú: Galería", widget: string, required: false, hint: "Ahora: Galería" }
           - { name: say_hi, label: "Botón Say Hi", widget: string, required: false, hint: "Ahora: Say Hi!" }
           - { name: featured_title, label: "Destacados: título", widget: string, required: false, hint: "Ahora: Trabajos destacados" }
           - { name: featured_sub, label: "Destacados: subtítulo", widget: string, required: false, hint: "Ahora: Lo que mejor me representa." }
@@ -269,8 +265,6 @@ collections:
           - { name: services_title, label: "Trayectoria: Servicios", widget: string, required: false, hint: "Ahora: Servicios" }
           - { name: workflow_title, label: "Workflow: título", widget: string, required: false, hint: "Ahora: De la idea al corte final." }
           - { name: workflow_sub, label: "Workflow: subtítulo", widget: string, required: false, hint: "Ahora: Un proceso claro para que cada proyecto llegue a tiempo." }
-          - { name: gallery_title, label: "Galería: título", widget: string, required: false, hint: "Ahora: Fotos, renders y diseño" }
-          - { name: gallery_button, label: "Galería: botón", widget: string, required: false, hint: "Ahora: Ver galería" }
           - { name: messages_title, label: "Mensajes: título", widget: string, required: false, hint: "Ahora: Lo que dicen" }
           - { name: messages_sub, label: "Mensajes: subtítulo", widget: string, required: false, hint: "Ahora: Mensajes de clientes y colegas." }
           - { name: contact_title, label: "Contacto: título", widget: string, required: false, hint: "Ahora: Say Hi! 👋" }
@@ -296,7 +290,7 @@ collections:
           - { name: chat_placeholder, label: "Chat: texto de la barra", widget: string, required: false, hint: "Ahora: iMessage" }
           - { name: footer_note, label: "Pie de página: frase", widget: string, required: false, hint: "Ahora: " }
           - { name: contact_email_label, label: "Contacto: Correo", widget: string, required: false, hint: "Ahora: Correo:" }
-          - { name: contact_email_ph, label: "Contacto: ejemplo de correo", widget: string, required: false, hint: "Ahora: tu@correo.com" }
+          - { name: contact_email_ph, label: "Contacto: ejemplo de correo", widget: string, required: false, hint: "Ahora: jhaelbaez01@gmail.com" }
           - { name: contact_need, label: "Contacto: aviso si falta algo", widget: string, required: false, hint: "Ahora: Escribe tu mensaje y un correo válido para poder responderte." }
           - { name: contact_sending, label: "Contacto: Enviando", widget: string, required: false, hint: "Ahora: Enviando…" }
           - { name: contact_sent, label: "Contacto: mensaje enviado", widget: string, required: false, hint: "Ahora: Entregado. Te respondo pronto." }
@@ -308,3 +302,10 @@ collections:
           - { name: chat_fallback, label: "Chat: si no se puede enviar", widget: string, required: false, hint: "Ahora: Para que me llegue, escríbeme por" }
           - { name: experience_now, label: "Experiencia: etiqueta Actual", widget: string, required: false, hint: "Ahora: Actual" }
           - { name: experience_count, label: "Experiencia: palabra junto al número", widget: string, required: false, hint: "Ahora: puestos" }
+          - { name: fmt_label, label: "Trabajo: texto Formato", widget: string, required: false, hint: "Ahora: Formato" }
+          - { name: fmt_vertical, label: "Trabajo: botón Vertical", widget: string, required: false, hint: "Ahora: Vertical" }
+          - { name: fmt_horizontal, label: "Trabajo: botón Horizontal", widget: string, required: false, hint: "Ahora: Horizontal" }
+          - { name: cursor_video, label: "Trabajo: etiqueta del cursor en videos", widget: string, required: false, hint: "Ahora: Ver video" }
+          - { name: cursor_image, label: "Trabajo: etiqueta del cursor en diseños", widget: string, required: false, hint: "Ahora: Ver diseño" }
+          - { name: messages_client, label: "Mensajes: texto si no hay empresa", widget: string, required: false, hint: "Ahora: Cliente" }
+          - { name: messages_verified, label: "Mensajes: texto si no hay cargo", widget: string, required: false, hint: "Ahora: Cliente" }

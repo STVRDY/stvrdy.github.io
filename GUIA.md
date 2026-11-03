@@ -26,7 +26,6 @@ Portfolio/
 │   ├── perfil.json         nombre, foto, chat, contacto, redes
 │   ├── proyectos.json      tus trabajos
 │   ├── trayectoria.json    cifras, programas, idiomas, experiencia
-│   ├── galeria.json        fotos, renders y diseños sueltos
 │   ├── mensajes.json       mensajes de clientes
 │   ├── faq.json            preguntas frecuentes (menú •••)
 │   └── textos.json         textos del menú, títulos y botones
@@ -107,6 +106,9 @@ Cada vez que pulsas **Save**, el panel guarda el cambio en GitHub y la web se ac
    - **Destacado**: los 4 primeros destacados **verticales** salen en el teléfono y debajo de él, y los destacados salen primero en el abanico del inicio.
 3. **Save**.
 
+### Formato vertical / horizontal
+En la web, el selector **Formato** (Vertical 9:16 · Horizontal 16:9) muestra cuántas piezas hay de cada tipo. Cada proyecto va en uno u otro según su campo **Formato**. Los diseños y fotos se muestran con el tamaño real de la imagen.
+
 ### Ordenar
 Arrastra los proyectos en la lista. El de arriba sale primero.
 
@@ -123,8 +125,7 @@ Apaga **Visible en la web**. Útil si un cliente te pide quitar una pieza: lo ap
 
 ### Lo demás
 - **Trayectoria**: las 3 cifras, programas, idiomas, servicios, el workflow (pasos con imagen) y experiencia. Si dejas la experiencia vacía, esa tarjeta no aparece.
-- **Galería**: fotos, renders y diseños sueltos.
-- **Mensajes de clientes**: nombre, empresa, mensaje y un emoji de reacción.
+- **Mensajes de clientes**: salen como widgets de iOS. Cada uno tiene nombre, cargo, foto (opcional), empresa, fecha, mensaje y una pestaña de color con un emoji y una frase corta (por ejemplo "⚡ Entrega en 24 horas").
 - **Preguntas frecuentes**: aparecen en el menú •••.
 - **Textos de la página**: menú, títulos y botones. Sirve para pasar la web a inglés.
 

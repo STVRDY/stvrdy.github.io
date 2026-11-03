@@ -3,7 +3,6 @@
   "nav_work": "Trabajo",
   "nav_about": "Sobre mí",
   "nav_background": "Trayectoria",
-  "nav_gallery": "Galería",
   "say_hi": "Say Hi!",
   "featured_title": "Trabajos destacados",
   "featured_sub": "Lo que mejor me representa.",
@@ -19,8 +18,6 @@
   "services_title": "Servicios",
   "workflow_title": "De la idea al corte final.",
   "workflow_sub": "Un proceso claro para que cada proyecto llegue a tiempo.",
-  "gallery_title": "Fotos, renders y diseño",
-  "gallery_button": "Ver galería",
   "messages_title": "Lo que dicen",
   "messages_sub": "Mensajes de clientes y colegas.",
   "contact_title": "Say Hi! 👋",
@@ -57,5 +54,12 @@
   "chat_sent": "¡Listo! Me llegó tu mensaje. Te respondo pronto ✉️",
   "chat_fallback": "Para que me llegue, escríbeme por",
   "experience_now": "Actual",
-  "experience_count": "puestos"
+  "experience_count": "puestos",
+  "fmt_label": "Formato",
+  "fmt_vertical": "Vertical",
+  "fmt_horizontal": "Horizontal",
+  "cursor_video": "Ver video",
+  "cursor_image": "Ver diseño",
+  "messages_client": "Cliente",
+  "messages_verified": "Cliente"
 }

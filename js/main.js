@@ -14,6 +14,7 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let T = {};        // textos de la página (content/textos.json)
 let P = {};        // perfil
 let PROJECTS = []; // proyectos visibles
+const scrollHooks = []; // funciones que se llaman en cada scroll
 
 /* ---------- utilidades ---------- */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -69,12 +70,12 @@ async function load(name) {
 (async function start() {
   let data;
   try {
-    data = await Promise.all(['textos', 'perfil', 'proyectos', 'trayectoria', 'galeria', 'mensajes', 'faq'].map(load));
+    data = await Promise.all(['textos', 'perfil', 'proyectos', 'trayectoria', 'mensajes', 'faq'].map(load));
   } catch (e) {
     document.body.insertAdjacentHTML('afterbegin', `<p style="position:fixed;z-index:99;inset:auto 16px 16px;padding:14px 18px;border-radius:16px;background:#ff3b30;color:#fff;font-weight:600">No se pudo cargar el contenido. Abre la página con "ver-local.bat" (no con doble clic en index.html).</p>`);
     return;
   }
-  const [textos, perfil, proyectos, tray, galeria, mensajes, faq] = data;
+  const [textos, perfil, proyectos, tray, mensajes, faq] = data;
   T = textos; P = perfil;
   PROJECTS = (proyectos.items || []).filter(x => x.visible !== false);
 
@@ -86,7 +87,6 @@ async function load(name) {
   renderMarquee();
   renderWork();
   renderBento(tray);
-  renderGallery(galeria.items || []);
   renderMessages(mensajes.items || []);
   renderContact();
   renderSheet(faq.items || []);
@@ -262,36 +262,150 @@ function renderMarquee() {
   $('#marqueeTrack').innerHTML = html;
 }
 
-/* ---------- cuadrícula de trabajo ---------- */
+/* ---------- cuadrícula de trabajo ----------
+   Mosaico tipo "masonry": cada pieza ocupa su altura real.
+   Videos: 9:16 o 16:9. Diseños y fotos: el tamaño original de la imagen. */
 const CATS = ['video', 'motion', 'montage', 'longform', 'render3d', 'branding', 'diseno', 'foto'];
 const catLabel = c => T['cat_' + c] || c;
 const state = { cat: 'all', format: 'vertical', open: false };
+const isImage = x => !playable(x); // sin video: es diseño o foto
+const fmtOf = x => x.format || 'vertical';
+let firstWork = true;
+
 function renderWork() {
-  const present = CATS.filter(c => PROJECTS.some(x => x.category === c));
-  $('#filters').innerHTML = ['all', ...present].map(c =>
-    `<button role="tab" data-cat="${c}" class="${state.cat === c ? 'on' : ''}">${esc(c === 'all' ? T.cat_all || 'Todo' : catLabel(c))}</button>`).join('');
+  const inFormat = PROJECTS.filter(x => fmtOf(x) === state.format);
+  // si el formato no tiene piezas de esa categoría, vuelve a "Todo"
+  if (state.cat !== 'all' && !inFormat.some(x => x.category === state.cat)) state.cat = 'all';
+  const present = CATS.filter(c => inFormat.some(x => x.category === c));
+  $('#filters').innerHTML = ['all', ...present].map(c => {
+    const n = c === 'all' ? inFormat.length : inFormat.filter(x => x.category === c).length;
+    return `<button role="tab" data-cat="${c}" class="${state.cat === c ? 'on' : ''}">${esc(c === 'all' ? T.cat_all || 'Todo' : catLabel(c))}<sup>${n}</sup></button>`;
+  }).join('');
   $$('#filters button').forEach(b => b.onclick = () => { state.cat = b.dataset.cat; state.open = false; renderWork(); });
+
+  // selector de formato con contador y píldora que se desliza
   $$('.ratio button').forEach(b => {
+    const n = PROJECTS.filter(x => fmtOf(x) === b.dataset.format).length;
     b.classList.toggle('on', b.dataset.format === state.format);
-    b.onclick = () => { state.format = b.dataset.format; state.open = false; renderWork(); };
+    b.setAttribute('aria-selected', b.dataset.format === state.format);
+    $('.cnt', b).textContent = n;
+    b.disabled = !n;
+    b.onclick = () => { if (state.format !== b.dataset.format) { state.format = b.dataset.format; state.open = false; renderWork(); } };
   });
-  const list = PROJECTS.filter(x => (x.format || 'vertical') === state.format && (state.cat === 'all' || x.category === state.cat));
-  const limit = state.format === 'vertical' ? 8 : 6;
+  movePill();
+
+  const list = inFormat.filter(x => state.cat === 'all' || x.category === state.cat);
+  const limit = 12;
   const shown = state.open ? list : list.slice(0, limit);
   const grid = $('#grid');
+
+  // FLIP: recuerda dónde estaba cada pieza para animarla a su nuevo sitio
+  const before = new Map($$('.tile', grid).map(t => [t.dataset.k, t.getBoundingClientRect()]));
+
   grid.className = 'grid ' + state.format;
-  grid.innerHTML = shown.length ? shown.map((x, n) => `
-    <article class="tile" style="--n:${n % limit}" data-k="${PROJECTS.indexOf(x)}">
-      <div class="media" style="--g:${grad(x.title)}">${mediaHTML(x, { ph: true })}${playable(x) ? '<span class="play">▶</span>' : ''}</div>
-      <div class="lbl"><b>${esc(x.title)}</b><span>${esc([catLabel(x.category), x.year].filter(Boolean).join(' · '))}</span></div>
-    </article>`).join('') : `<p class="empty">—</p>`;
-  $$('.tile', grid).forEach(t => t.onclick = () => openProject(PROJECTS[t.dataset.k]));
+  grid.innerHTML = shown.length ? shown.map((x, n) => {
+    const img = isImage(x);
+    const ar = img ? '4 / 5' : (fmtOf(x) === 'horizontal' ? '16 / 9' : '9 / 16');
+    const count = [x.cover, ...(x.images || [])].filter(Boolean).length;
+    return `
+    <article class="tile${img ? ' is-img' : ''}" style="--n:${n % limit}" data-k="${PROJECTS.indexOf(x)}" tabindex="0" data-tag="${esc(img ? (T.cursor_image || 'Ver') : (T.cursor_video || 'Ver video'))}">
+      <div class="tile-in">
+        <div class="media" style="--g:${grad(x.title)};--ar:${ar}">
+          ${mediaHTML(x, { ph: true })}
+          <span class="glare"></span>
+          <span class="cat">${esc(catLabel(x.category))}</span>
+          ${count > 1 ? `<span class="stack">${count}</span>` : ''}
+          ${playable(x) ? '<span class="play">▶</span>' : ''}
+        </div>
+        <div class="lbl"><b>${esc(x.title)}</b><span>${esc([x.client, x.year].filter(Boolean).join(' · '))}</span></div>
+      </div>
+    </article>`;
+  }).join('') : `<p class="empty">—</p>`;
+
+  const tiles = $$('.tile', grid);
+  tiles.forEach(t => {
+    t.onclick = () => openProject(PROJECTS[t.dataset.k]);
+    t.onkeydown = e => { if (e.key === 'Enter') openProject(PROJECTS[t.dataset.k]); };
+    // diseños y fotos: usa la proporción real de la imagen
+    const im = $('.is-img .media img', t) || (t.classList.contains('is-img') && $('img', t));
+    if (im) {
+      const fit = () => { if (im.naturalWidth) $('.media', t).style.setProperty('--ar', `${im.naturalWidth} / ${im.naturalHeight}`); };
+      im.complete ? fit() : im.addEventListener('load', fit);
+    }
+  });
+  layoutGrid();
+  setupTileFx(tiles);
+
+  if (firstWork) { observeReveal(tiles); firstWork = false; }
+  else {
+    tiles.forEach((t, i) => {
+      t.classList.add('in');
+      const old = before.get(t.dataset.k), now = t.getBoundingClientRect();
+      if (reduced) return;
+      if (old) t.animate([{ transform: `translate(${old.left - now.left}px, ${old.top - now.top}px) scale(${old.width / now.width})` }, { transform: 'none' }], { duration: 650, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      else t.animate([{ opacity: 0, transform: 'translateY(30px) scale(.92)', filter: 'blur(6px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 600, delay: Math.min(i, 12) * 40, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+    });
+  }
   const more = $('#moreWork');
   more.hidden = list.length <= limit;
-  more.textContent = state.open ? (T.see_less || 'Ver menos') : (T.see_more || 'Ver más');
+  more.textContent = state.open ? (T.see_less || 'Ver menos') : `${T.see_more || 'Ver más'} (+${Math.max(0, list.length - limit)})`;
   more.onclick = () => { state.open = !state.open; renderWork(); if (!state.open) $('#todo').scrollIntoView(); };
-  observeReveal($$('.tile', grid));
   observeVideos($$('video', grid));
+}
+
+// mueve la píldora del selector de formato debajo del botón activo
+function movePill() {
+  const on = $('.ratio button.on'), pill = $('.ratio-pill');
+  if (!on || !pill) return;
+  pill.style.width = on.offsetWidth + 'px';
+  pill.style.transform = `translateX(${on.offsetLeft - 4}px)`;
+}
+
+// Mosaico: cada pieza ocupa tantas filas de 8 px como mida de alto
+const gridRO = new ResizeObserver(() => layoutGrid());
+function layoutGrid() {
+  const grid = $('#grid');
+  if (!grid) return;
+  $$('.tile', grid).forEach(t => {
+    const h = $('.tile-in', t).getBoundingClientRect().height;
+    t.style.gridRowEnd = `span ${Math.ceil((h + 22) / 8)}`;
+    // columna de la pieza → velocidad distinta al hacer scroll (efecto parallax)
+    const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+    const col = Math.round(t.offsetLeft / (grid.clientWidth / cols));
+    t.style.setProperty('--sp', [0, 1, -.4, .7, -.2][col % 5]);
+    if (!t._ro) { t._ro = 1; gridRO.observe($('.tile-in', t)); }
+  });
+}
+addEventListener('resize', () => { layoutGrid(); movePill(); });
+
+// Inclinación + brillo en cada pieza y etiqueta que sigue al cursor
+const cursorTag = { x: 0, y: 0, tx: 0, ty: 0, on: false, raf: 0 };
+function setupTileFx(tiles) {
+  if (!finePointer || reduced) return;
+  const tag = $('#cursorTag');
+  tiles.forEach(t => {
+    const m = $('.media', t);
+    t.addEventListener('pointerenter', () => { tag.textContent = (t.classList.contains('is-img') ? '' : '▶ ') + t.dataset.tag; tag.classList.add('on'); cursorTag.on = true; loopTag(); });
+    t.addEventListener('pointerleave', () => { tag.classList.remove('on'); cursorTag.on = false; m.style.setProperty('--rx', '0deg'); m.style.setProperty('--ry', '0deg'); });
+    t.addEventListener('pointermove', e => {
+      const r = m.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      m.style.setProperty('--ry', ((x - .5) * 10).toFixed(2) + 'deg');
+      m.style.setProperty('--rx', ((.5 - y) * 10).toFixed(2) + 'deg');
+      m.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
+      m.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+      cursorTag.tx = e.clientX; cursorTag.ty = e.clientY;
+    });
+  });
+}
+function loopTag() {
+  if (cursorTag.raf) return;
+  const tag = $('#cursorTag');
+  const step = () => {
+    cursorTag.x += (cursorTag.tx - cursorTag.x) * .22; cursorTag.y += (cursorTag.ty - cursorTag.y) * .22;
+    tag.style.transform = `translate(${cursorTag.x}px, ${cursorTag.y}px)`;
+    cursorTag.raf = cursorTag.on || Math.abs(cursorTag.tx - cursorTag.x) > .5 ? requestAnimationFrame(step) : 0;
+  };
+  cursorTag.raf = requestAnimationFrame(step);
 }
 
 /* ---------- trayectoria (bento) ---------- */
@@ -317,13 +431,16 @@ function renderBento(d) {
       <span class="xp-glow" aria-hidden="true"></span>
       <header class="xp-head"><h3>${esc(T.experience_title || '')}</h3><span>${xp.length} ${esc(T.experience_count || '')}</span></header>
       <ol class="xp">${xp.map((e, i) => `
-        <li class="xp-i${isNow(e) ? ' is-now' : ''}" style="--n:${i}">
+        <li class="xp-i${isNow(e) ? ' is-now' : ''}${e.description ? ' has-more' : ''}" style="--n:${i}"${e.description ? ' tabindex="0"' : ''}>
           <span class="xp-logo">${e.logo ? `<img src="${esc(url(e.logo))}" alt="${esc(e.company)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('b'), { textContent: '${esc(initials(e.company))}' }))">` : `<b>${esc(initials(e.company))}</b>`}</span>
-          <div class="xp-txt"><b>${esc(e.role)}</b><span>${esc(e.company)}</span>${e.description ? `<p>${esc(e.description)}</p>` : ''}</div>
+          <div class="xp-txt"><b>${esc(e.role)}</b><span>${esc(e.company)}${e.description ? `<i class="xp-hint" aria-hidden="true">+</i>` : ''}</span>
+            ${e.description ? `<div class="xp-more"><p>${esc(e.description)}</p></div>` : ''}</div>
           <div class="xp-when">${isNow(e) ? `<span class="now"><i></i>${esc(T.experience_now || 'Actual')}</span>` : ''}<em>${esc(e.years || '')}</em></div>
         </li>`).join('')}</ol></div>` : ''}`;
   observeReveal($$('.bc'), el => $$('[data-count]', el).forEach(countUp));
   observeReveal($$('.xp-i'));
+  // En móvil (sin hover) se despliega al tocar
+  $$('.xp-i.has-more').forEach(li => li.addEventListener('click', () => { if (!finePointer) li.classList.toggle('open'); }));
   setupGlow($$('.bc'));
   renderWorkflow(d.workflow || []);
 }
@@ -375,39 +492,51 @@ function countUp(el) {
   })(t0);
 }
 
-/* ---------- galería ---------- */
-let GALLERY = [];
-function renderGallery(items) {
-  GALLERY = items;
-  words($('#galleryTitle'), T.gallery_title);
-  // posición (x%, y%), tamaño, velocidad y giro de cada imagen
-  const spots = [[12, 16, 120, 260, 14], [30, 8, 84, 160, -10], [70, 10, 104, 220, 8], [88, 22, 132, 300, -12], [6, 46, 92, 180, -8], [94, 50, 96, 200, 10],
-    [16, 80, 128, 280, 10], [36, 90, 88, 170, -6], [64, 88, 116, 240, 12], [86, 82, 90, 190, -10], [24, 38, 64, 120, 6], [78, 38, 70, 140, -6]];
-  const small = innerWidth < 640;
-  const big = Math.max(1, Math.min(1.7, innerWidth / 1440)); // escala en monitores grandes
-  $('#scatter').innerHTML = spots.map((s, i) => {
-    const x = items[i % Math.max(1, items.length)] || {};
-    const key = (x.caption || '') + i;
-    return `<div class="sc" data-g="${i % Math.max(1, items.length)}" style="left:${s[0]}%;top:${s[1]}%;--s:${small ? s[2] * .6 : Math.round(s[2] * big)}px;--sp:${Math.round(s[3] * big)}px;--r:${s[4]}deg;--g:${grad(key)}">${x.image ? `<img src="${esc(url(x.image))}" alt="" loading="lazy">` : ''}</div>`;
-  }).join('');
-  $$('.sc').forEach(el => el.onclick = () => openGallery());
-  $('#openGallery').onclick = openGallery;
-}
-function openGallery() {
-  const v = $('#viewerIn');
-  v.className = 'viewer-in gal';
-  v.innerHTML = `<button class="v-close lg lg-light" aria-label="Cerrar">✕</button><div class="masonry">${GALLERY.map((x, i) => `
-    <figure style="--g:${grad((x.caption || '') + i)}">${x.image ? `<img src="${esc(url(x.image))}" alt="${esc(x.caption)}" loading="lazy">` : `<div class="v-ph" style="--ar:${[0.8, 1, 1.25, 0.75][i % 4]}">${esc(x.caption)}</div>`}${x.caption && x.image ? `<figcaption>${esc(x.caption)}</figcaption>` : ''}</figure>`).join('')}</div>`;
-  showViewer();
-}
-
-/* ---------- mensajes ---------- */
+/* ---------- mensajes de clientes ----------
+   Tarjetas estilo widget de iOS: tarjeta oscura + pestaña de color debajo.
+   Al bajar pasan en horizontal; la del centro crece y saca su pestaña. */
+const TAB_COLORS = { verde: '#a6f25c', azul: '#64b5ff', rosa: '#ff8fc7', naranja: '#ffb35c', morado: '#b9a3ff', amarillo: '#ffe066' };
+const CLOCK = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M5 3 2 6M19 3l3 3"/></svg>';
 function renderMessages(items) {
   if (!items.length) { $('#mensajes').remove(); return; }
-  const pop = (m, i) => `<div class="pop${i % 5 === 3 ? ' me' : ''}"><em>${esc(m.emoji || '💬')}</em><b>${esc([m.name, m.company].filter(Boolean).join(' · '))}</b><span>${esc(m.message)}</span></div>`;
-  const fill = arr => { let out = []; while (out.length < 14) out = out.concat(arr); return out; };
-  $('#row1').innerHTML = fill(items).map(pop).join('');
-  $('#row2').innerHTML = fill([...items].reverse()).map(pop).join('');
+  const cols = Object.values(TAB_COLORS);
+  $('#wtrack').innerHTML = items.map((m, i) => `
+    <article class="wcard" style="--tab:${TAB_COLORS[m.color] || cols[i % cols.length]}">
+      <div class="w-main">
+        <header class="w-top"><span>${esc(m.company || T.messages_client || 'Cliente')}</span>${m.date ? `<span class="w-time">${CLOCK}${esc(m.date)}</span>` : ''}</header>
+        <div class="w-who">
+          <span class="w-av">${m.photo ? `<img src="${esc(url(m.photo))}" alt="" loading="lazy">` : esc(initials(m.name))}</span>
+          <div><b>${esc(m.name)}</b><small><i></i>${esc(m.role || T.messages_verified || 'Cliente')}</small></div>
+        </div>
+        <p class="w-msg">“${esc(m.message)}”</p>
+      </div>
+      <div class="w-tab"><span>${esc(m.emoji || '⚡')}</span>${esc(m.tag || m.company || '')}</div>
+    </article>`).join('');
+  $('#wdots').innerHTML = items.map(() => '<i></i>').join('');
+  // la altura de la sección define cuánto hay que bajar para verlas todas
+  if (!reduced) $('#mensajes').style.height = `calc(100vh + ${Math.max(1, items.length - 1) * 55}vh)`;
+  scrollHooks.push(updateMessages);
+}
+function updateMessages() {
+  const sec = $('#mensajes'), track = $('#wtrack');
+  if (!sec || reduced) return;
+  const r = sec.getBoundingClientRect(), vh = innerHeight;
+  if (r.bottom < 0 || r.top > vh) return;
+  const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - vh)));
+  const cards = $$('.wcard', track);
+  const first = cards[0], last = cards[cards.length - 1];
+  const span = (last.offsetLeft + last.offsetWidth / 2) - (first.offsetLeft + first.offsetWidth / 2);
+  const x = p * span;
+  track.style.transform = `translateX(${-x}px)`;
+  const center = first.offsetLeft + first.offsetWidth / 2 + x;
+  let active = 0;
+  cards.forEach((c, i) => {
+    const d = Math.max(-1.5, Math.min(1.5, (c.offsetLeft + c.offsetWidth / 2 - center) / (c.offsetWidth + 40)));
+    c.style.setProperty('--d', d.toFixed(3));
+    c.style.setProperty('--a', Math.min(1, Math.abs(d)).toFixed(3));
+    if (Math.abs(d) < .5) active = i;
+  });
+  $$('#wdots i').forEach((dot, i) => dot.classList.toggle('on', i === active));
 }
 
 /* ---------- contacto ----------
@@ -474,7 +603,7 @@ function renderContact() {
 
 /* ---------- menú ••• ---------- */
 function renderSheet(faq) {
-  const links = [['#trabajo', 'nav_work'], ['#sobre', 'nav_about'], ['#trayectoria', 'nav_background'], ['#galeria', 'nav_gallery']];
+  const links = [['#trabajo', 'nav_work'], ['#sobre', 'nav_about'], ['#trayectoria', 'nav_background'], ['#contacto', 'say_hi']];
   $('#sheetIn').innerHTML = `
     ${links.map(([h, k]) => `<a class="mi-row mob" href="${h}" data-close>${esc(T[k] || '')}<span>›</span></a>`).join('')}
     ${P.cv ? `<a class="mi-row" href="${esc(url(P.cv))}" download target="_blank" rel="noopener">${esc(T.cv_button || 'CV')}<span>↓</span></a>` : ''}
@@ -486,31 +615,51 @@ function renderSheet(faq) {
   sheet.addEventListener('click', e => { if (e.target === sheet || e.target.closest('[data-close]')) sheet.close(); });
 }
 
-/* ---------- visor de proyectos ---------- */
+/* ---------- visor de proyectos ----------
+   Videos: YouTube. Diseños y fotos: imagen a su tamaño real, con flechas si hay varias. */
 function openProject(x) {
   if (!x) return;
   const vertical = x.format !== 'horizontal';
   const id = ytId(x.youtube);
   const imgs = [x.cover, ...(x.images || [])].filter(Boolean);
-  let media;
-  if (id) media = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1" title="${esc(x.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
-  else if (x.video) media = `<video src="${esc(url(x.video))}" controls autoplay playsinline loop></video>`;
-  else if (imgs.length) media = `<img id="vMain" src="${esc(url(imgs[0]))}" alt="${esc(x.title)}">`;
-  else media = `<div class="v-ph" style="--g:${grad(x.title)}">${esc(x.title)}</div>`;
   const v = $('#viewerIn');
-  v.className = 'viewer-in ' + (vertical ? 'vertical' : 'horizontal');
+  let idx = 0;
+  const imgHTML = i => `<img class="v-img" src="${esc(url(imgs[i]))}" alt="${esc(x.title)}">${imgs.length > 1 ? `
+      <button class="v-nav prev lg lg-light" aria-label="Anterior">‹</button><button class="v-nav next lg lg-light" aria-label="Siguiente">›</button>
+      <span class="v-count">${i + 1} / ${imgs.length}</span>` : ''}`;
+  let media, kind;
+  if (id) { kind = vertical ? 'vertical' : 'horizontal'; media = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1" title="${esc(x.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`; }
+  else if (x.video) { kind = vertical ? 'vertical' : 'horizontal'; media = `<video src="${esc(url(x.video))}" controls autoplay playsinline loop></video>`; }
+  else if (imgs.length) { kind = 'image'; media = imgHTML(0); }
+  else { kind = vertical ? 'vertical' : 'horizontal'; media = `<div class="v-ph" style="--g:${grad(x.title)}">${esc(x.title)}</div>`; }
+  v.className = 'viewer-in ' + kind;
   v.innerHTML = `
     <button class="v-close lg lg-light" aria-label="Cerrar">✕</button>
     <div class="v-media">${media}</div>
     <div class="v-info">
+      <span class="v-cat">${esc(catLabel(x.category))}</span>
       <h3>${esc(x.title)}</h3>
-      <div class="v-meta">${esc([catLabel(x.category), x.client, x.role, x.year].filter(Boolean).join(' · '))}</div>
+      <div class="v-meta">${esc([x.client, x.role, x.year].filter(Boolean).join(' · '))}</div>
       ${x.description ? `<p>${esc(x.description)}</p>` : ''}
-      ${imgs.length > 1 || (imgs.length && (id || x.video)) ? `<div class="v-thumbs">${imgs.map(s => `<button data-src="${esc(url(s))}"><img src="${esc(url(s))}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
+      ${imgs.length > 1 || (imgs.length && (id || x.video)) ? `<div class="v-thumbs">${imgs.map((s, i) => `<button data-i="${i}"><img src="${esc(url(s))}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
     </div>`;
-  $$('.v-thumbs button', v).forEach(b => b.onclick = () => {
-    $('.v-media', v).innerHTML = `<img id="vMain" src="${b.dataset.src}" alt="">`;
-  });
+  const show = i => {
+    idx = (i + imgs.length) % imgs.length;
+    v.className = 'viewer-in image';
+    $('.v-media', v).innerHTML = imgHTML(idx);
+    $$('.v-thumbs button', v).forEach(b => b.classList.toggle('on', +b.dataset.i === idx));
+  };
+  v.onclick = e => {
+    if (e.target.closest('.v-nav.prev')) show(idx - 1);
+    else if (e.target.closest('.v-nav.next')) show(idx + 1);
+    else if (e.target.closest('.v-thumbs button')) show(+e.target.closest('button').dataset.i);
+  };
+  v.onkeydown = null;
+  $('#viewer').onkeydown = e => {
+    if (!imgs.length || v.classList.contains('vertical') || v.classList.contains('horizontal')) return;
+    if (e.key === 'ArrowRight') show(idx + 1);
+    if (e.key === 'ArrowLeft') show(idx - 1);
+  };
   showViewer();
 }
 function showViewer() {
@@ -540,6 +689,7 @@ function setupScroll() {
       let p = el.dataset.scene === 'sticky' ? -r.top / Math.max(1, r.height - vh) : (vh - r.top) / (vh + r.height);
       el.style.setProperty('--p', Math.min(1, Math.max(0, reduced ? 1 : p)).toFixed(4));
     }
+    scrollHooks.forEach(f => f());
     root.style.setProperty('--sky', Math.min(1, Math.max(0, (scrollY - vh * .7) / (vh * .9))).toFixed(3));
     ticking = false;
   }

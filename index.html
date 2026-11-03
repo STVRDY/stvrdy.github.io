@@ -29,7 +29,6 @@
     <a href="#trabajo" data-t="nav_work">Trabajo</a>
     <a href="#sobre" data-t="nav_about">Sobre mí</a>
     <a href="#trayectoria" data-t="nav_background">Trayectoria</a>
-    <a href="#galeria" data-t="nav_gallery">Galería</a>
   </div>
   <button class="nav-more" id="moreBtn" aria-label="Más opciones">•••</button>
   <a class="nav-hi lg lg-light" href="#contacto" data-t="say_hi">Say Hi!</a>
@@ -85,18 +84,24 @@
   <div class="marquee" data-scene="pass" id="marquee" aria-hidden="true"><div class="marquee-track" id="marqueeTrack"></div></div>
 
   <!-- ===== TODO EL TRABAJO (cuadrícula con filtros) ===== -->
-  <section class="work wrap" id="todo">
+  <section class="work wrap" id="todo" data-scene="pass">
     <header class="work-head">
       <h2><span data-t="work_title">Mi trabajo</span><br><span class="soft" data-t="work_sub">De la idea a la entrega</span></h2>
     </header>
     <div class="work-bar">
       <div class="filters" id="filters" role="tablist"></div>
-      <div class="ratio lg lg-light" role="group" aria-label="Formato">
-        <button class="on" data-format="vertical" aria-label="Vertical 9:16"><i class="ic-v"></i></button>
-        <button data-format="horizontal" aria-label="Horizontal 16:9"><i class="ic-h"></i></button>
+      <!-- Selector de formato: con texto y número para que se entienda qué hace -->
+      <div class="ratio-wrap">
+        <span class="ratio-label" data-t="fmt_label">Formato</span>
+        <div class="ratio lg lg-light" role="tablist" aria-label="Formato">
+          <span class="ratio-pill" aria-hidden="true"></span>
+          <button class="on" role="tab" data-format="vertical"><i class="ic-v"></i><span data-t="fmt_vertical">Vertical</span><small>9:16</small><em class="cnt"></em></button>
+          <button role="tab" data-format="horizontal"><i class="ic-h"></i><span data-t="fmt_horizontal">Horizontal</span><small>16:9</small><em class="cnt"></em></button>
+        </div>
       </div>
     </div>
     <div class="grid" id="grid"></div>
+    <div class="cursor-tag" id="cursorTag" aria-hidden="true"></div>
     <button class="btn lg lg-blue more" id="moreWork" data-t="see_more">Ver más</button>
   </section>
 
@@ -118,23 +123,17 @@
     <div class="flow-row" id="flowRow"></div>
   </section>
 
-  <!-- ===== GALERÍA (imágenes dispersas) ===== -->
-  <section class="gallery" id="galeria" data-scene="pass">
-    <div class="scatter" id="scatter" aria-hidden="true"></div>
-    <div class="gallery-center">
-      <h2 class="reveal-words" id="galleryTitle"></h2>
-      <button class="btn lg lg-dark" id="openGallery" data-t="gallery_button">Ver galería</button>
-    </div>
-  </section>
-
   <!-- ===== MENSAJES (testimonios) ===== -->
-  <section class="msec" id="mensajes" data-scene="pass">
-    <header class="sec-head center wrap">
-      <h2 data-t="messages_title">Lo que dicen</h2>
-      <p data-t="messages_sub"></p>
-    </header>
-    <div class="row" id="row1"></div>
-    <div class="row" id="row2"></div>
+  <!-- Tarjetas tipo widget de iOS que pasan en horizontal mientras bajas -->
+  <section class="msec" id="mensajes">
+    <div class="msec-sticky">
+      <header class="sec-head center wrap">
+        <h2 data-t="messages_title">Lo que dicen</h2>
+        <p data-t="messages_sub"></p>
+      </header>
+      <div class="wtrack" id="wtrack"></div>
+      <div class="wdots" id="wdots" aria-hidden="true"></div>
+    </div>
   </section>
 
   <!-- ===== CONTACTO ===== -->
