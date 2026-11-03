@@ -275,6 +275,51 @@
       "role": "Fotógrafo, Editor",
       "year": "2026",
       "description": ""
+    },
+    {
+      "title": "Showcase - Visual Design",
+      "visible": true,
+      "featured": false,
+      "category": "diseno",
+      "format": "vertical",
+      "youtube": "",
+      "cover": "/assets/uploads/m81.webp",
+      "video": "",
+      "images": [],
+      "client": "",
+      "role": "",
+      "year": "",
+      "description": ""
+    },
+    {
+      "title": "Showcase - Visual Design",
+      "visible": true,
+      "featured": false,
+      "category": "diseno",
+      "format": "vertical",
+      "youtube": "",
+      "cover": "/assets/uploads/m82.webp",
+      "video": "",
+      "images": [],
+      "client": "",
+      "role": "",
+      "year": "",
+      "description": ""
+    },
+    {
+      "title": "Showcase - Visual Design",
+      "visible": true,
+      "featured": false,
+      "category": "diseno",
+      "format": "vertical",
+      "youtube": "",
+      "cover": "/assets/uploads/m83.webp",
+      "video": "",
+      "images": [],
+      "client": "",
+      "role": "",
+      "year": "",
+      "description": ""
     }
   ]
 }
