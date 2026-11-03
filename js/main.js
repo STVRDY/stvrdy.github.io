@@ -62,18 +62,24 @@ const playable = x => !!(ytId(x.youtube) || x.video);
 
 async function load(name) {
   const r = await fetch(`content/${name}.json`, { cache: 'no-cache' });
-  if (!r.ok) throw new Error(name);
+  if (!r.ok) throw new Error(`${name}.json (${r.status})`);
   return r.json();
 }
-
-/* ---------- arranque ---------- */
 (async function start() {
-  let data;
-  try {
-    data = await Promise.all(['textos', 'perfil', 'proyectos', 'trayectoria', 'mensajes', 'faq'].map(load));
-  } catch (e) {
-    document.body.insertAdjacentHTML('afterbegin', `<p style="position:fixed;z-index:99;inset:auto 16px 16px;padding:14px 18px;border-radius:16px;background:#ff3b30;color:#fff;font-weight:600">No se pudo cargar el contenido. Abre la página con "ver-local.bat" (no con doble clic en index.html).</p>`);
-    return;
+  // Si un archivo falla, la página sigue con esa sección vacía en vez de romperse entera
+  const names = ['textos', 'perfil', 'proyectos', 'trayectoria', 'mensajes', 'faq'];
+  const res = await Promise.allSettled(names.map(load));
+  const failed = res.map((r, i) => r.status === 'rejected' ? names[i] : null).filter(Boolean);
+  const data = res.map(r => r.status === 'fulfilled' ? r.value : {});
+  if (failed.length) {
+    console.warn('No se pudo cargar:', failed.join(', '));
+    if (failed.includes('perfil') || failed.includes('proyectos')) {
+      const local = location.protocol === 'file:';
+      document.body.insertAdjacentHTML('afterbegin', `<p style="position:fixed;z-index:99;inset:auto 16px 16px;padding:14px 18px;border-radius:16px;background:#ff3b30;color:#fff;font-weight:600">${local
+        ? 'No se pudo cargar el contenido. Abre la página con "ver-local.bat" (no con doble clic en index.html).'
+        : 'No se pudo cargar el contenido. Recarga la página con Ctrl + F5.'}</p>`);
+      if (local) return;
+    }
   }
   const [textos, perfil, proyectos, tray, mensajes, faq] = data;
   T = textos; P = perfil;
