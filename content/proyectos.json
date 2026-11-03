@@ -320,6 +320,36 @@
       "role": "",
       "year": "",
       "description": ""
+    },
+    {
+      "title": "Long format - Build custom keyboard",
+      "visible": true,
+      "featured": false,
+      "category": "video",
+      "format": "horizontal",
+      "youtube": "https://www.youtube.com/watch?v=KiVF1xi4Jno",
+      "cover": "https://i9.ytimg.com/vi/KiVF1xi4Jno/mqdefault.jpg?v=6781d595&sqp=CLzzqNcG&rs=AOn4CLCJW0GIp-2xnQ1YZt2Z031z8-YZpQ",
+      "video": "",
+      "images": [],
+      "client": "Kboarddot",
+      "role": "Editor, Filmmaker",
+      "year": "2025",
+      "description": ""
+    },
+    {
+      "title": "Long Format - Review",
+      "visible": true,
+      "featured": false,
+      "category": "video",
+      "format": "horizontal",
+      "youtube": "https://www.youtube.com/watch?v=2PGojzDiqEw",
+      "cover": "https://i9.ytimg.com/vi/2PGojzDiqEw/mqdefault.jpg?v=675b0965&sqp=CLzzqNcG&rs=AOn4CLBbEIuRZTsQJkWOXFBSknuq4x8S1Q",
+      "video": "",
+      "images": [],
+      "client": "Kboarddot",
+      "role": "Editor, Filmmaker",
+      "year": "2025",
+      "description": ""
     }
   ]
 }
