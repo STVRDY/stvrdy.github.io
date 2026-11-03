@@ -174,6 +174,7 @@ Si pegas como portada un enlace que empieza por `https://i9.ytimg.com/...`, ese 
 |---|---|
 | Aviso rojo "No se pudo cargar el contenido" en tu PC | Abre la web con `ver-local.bat`, no con doble clic. |
 | Aviso rojo en la web publicada | Un archivo de `content/` quedó mal escrito (normalmente por editarlo a mano). En GitHub Desktop → **History** → clic derecho en el último cambio → **Revert changes in commit** → Push. |
+| Aviso rojo "Recarga la página con Ctrl + F5" | El navegador guardó una versión anterior. Recarga con Ctrl + F5. Si cambias `css/` o `js/`, sube el número `?v=` en `index.html`. |
 | No veo un cambio | Espera 2 minutos y recarga con Ctrl + F5. En GitHub → pestaña **Actions** ves si la publicación sigue en curso. |
 | El panel dice que no encuentra el repositorio | Revisa la línea `repo:` de `admin/config.yml` y que el token tenga **Contents: Read and write** en ese repositorio. |
 | El token dejó de funcionar | Caducó. Crea uno nuevo (paso 4). |

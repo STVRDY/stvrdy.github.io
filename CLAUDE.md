@@ -18,5 +18,6 @@ El dueño no es programador. Explica los cambios en español, en pocas palabras,
 - No metas dependencias externas sin necesidad. Si hace falta una, cárgala desde un CDN con versión fija.
 - Comenta en español las partes nuevas.
 - Prueba en móvil (390 px) y escritorio, sin scroll horizontal.
+- Al cambiar `css/` o `js/`, sube el número `?v=` de las tres etiquetas en `index.html` (si no, los navegadores siguen usando el código viejo guardado).
 - Ver en local: `ver-local.bat` (o `python -m http.server 8000`).
 - La guía para el dueño es `GUIA.md`: actualízala si cambias cómo se usa algo.
